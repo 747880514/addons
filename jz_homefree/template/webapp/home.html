@@ -1,0 +1,859 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{$info['seotitle']}</title>
+	<meta name="keywords" content="{$info['seokeywords']}">
+	<meta name="description" content="{$info['seodescription']}">
+
+	<link href="../addons/jz_homefree/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/hallooou.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/color_main.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/owl.carousel.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/owl.theme.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/owl.transitions.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/animate.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/magnific-popup.css" rel="stylesheet">
+	<link href="../addons/jz_homefree/static/css/jquery.mb.ytplayer.min.css" rel="stylesheet">
+
+	<!-- Custom Fonts -->
+	<link href="../addons/jz_homefree/static/css/font-awesome.min.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="../addons/jz_homefree/static/js/html5shiv.min.js"></script>
+	<script src="../addons/jz_homefree/static/js/respond.js"></script>
+	<script>
+		document.createElement('video');
+	</script>
+	<![endif]-->
+
+	<!-- 百里 -->
+	<style type="text/css">
+		h3{
+			color: #ed587e;
+		}
+		.pace .pace-progress{
+			background: #ff204a;
+			height: 4px;
+		}
+		.scroll-top a:link{
+			background-color: #ed587e;
+			border-color: #ed587e;
+		}
+		.scroll-top a:hover{
+			border: 1px solid #ff204a;
+    		background: #ff204a;
+		}
+		.navbar-custom .nav li a{
+			color: #434544;
+		}
+		.navbar-custom .nav li a:hover{
+			color: #ff4d6d;
+			border-bottom:2px #ff4d6d solid;
+		}
+		.navbar-custom.top-nav-collapse .button_container span{
+			background: #434544;
+		}
+		.overlay{
+			background: #fff;
+		}
+		.overlay ul li a{
+			color: #ff4d6d;
+		}
+		.button_container.active .top,.button_container.active .bottom{
+			background: #ff4d6d !important;
+		}
+		.navbar-custom.top-nav-collapse{
+			background: rgba(255, 255, 255, 1);
+		}
+		.navbar.navbar-custom.navbar-fixed-top{
+			background: #fff;
+		}
+		.navbar-nav{
+			opacity: 1;
+		}
+		.button_container span{
+			background: #434544;
+		}
+		.overlay-detail{
+			background: none;
+		}
+		.ewm::after{
+			color: #fff;
+			bottom: 35px;
+			font-size: 12px;
+		}
+		.carousel-control.right:hover,.carousel-control.left:hover{
+			background: #fff;
+		}
+		.carousel-control.right:hover i,.carousel-control.left:hover i{
+			color: #ff204a;
+		}
+		.carousel-inner{
+			margin-top: 110px;
+		}
+		.carousel-caption{
+			bottom: 15%;
+		}
+		.mobile{
+			width: 85%;
+		}
+		.title{
+			top: 175px;
+		}
+		.download{
+			bottom: 130px;
+		}
+		.mouse{
+			bottom: 180px;
+		}
+		.ewm img{
+			width: 150px;
+			height: 150px;
+		}
+		.app_img{
+			top: 5px;
+			right: -70px;
+		}
+		.android{
+			width: 200px;
+			height: 50px;
+		}
+		.ios{
+			bottom: 70px;
+			width: 200px;
+			height: 50px;
+		}
+		.col-md-12 h2{
+			color: #4d4d4d;
+			letter-spacing: 3px;
+			font-size: 20px;
+		}
+		#products .col-md-4{
+			display: none;
+		}
+		#products.products{
+			background: #fff;
+		}
+		#products .products-container span.icon{
+			background: #ed587e;
+		}
+		#products .products-container p{
+			color: #6e6e6e;
+			font-size: 12px;
+			font-weight: bold;
+		}
+		#products .col-md-6{
+			width: 33.33%;
+		}
+		#products .col-md-6 .media-heading{
+			font-weight: 100;
+		}
+		#products .col-md-8{
+			width: 100%;
+			text-align: center;
+		}
+		#products .media-left{
+			display: inline;
+		}
+		#products .product-item p{
+			padding: 0 70px;
+		}
+		#services{
+			border-top: 2px #ccc solid;
+			border-bottom: 2px #ccc solid;
+			padding: 50px 0;
+		}
+		#services .services-item:before{
+			border-style: none;
+		}
+		#services .col-md-6{
+			padding: 0;
+			width: 43%;
+		}
+		#services .services-item{
+			margin: 0;
+			height: 280px;
+		}
+		#services .baili-bg{
+			background-image: url(../addons/jz_homefree/static/images/computeryangji.png);
+			background-repeat: no-repeat;
+			background-size:100%;
+			height: 750px;
+			padding-right: 8px;
+    		padding-left: 155px;
+    		padding-top: 40px;
+		}
+		#services.content-section{
+			padding: 170px 0;
+		}
+		#services .services-item p{
+			font-size: 12px;
+			margin: 0 80px;
+		}
+		#services h4{
+			margin-bottom: 30px;
+		}
+		#services h4,#services .services-item i{
+			color: #fff;
+		}
+		#services .nbg h4,#services .nbg.services-item i{
+			color: #ed587e;
+		}
+		#services h4,#services .services-item i{
+			font-weight: 100;
+		}
+		#services .bg i.icon-3x{
+			border-bottom: 1px #fff solid;
+			width: 100px;
+    		display: inline-block;
+		}
+		#services .nbg i.icon-3x{
+			border-bottom: 1px #ed587e solid;
+			width: 100px;
+    		display: inline-block;
+		}
+		#services .services-item.bg{
+			background: #ff4d6d;
+		}
+		#services .services-item.bg p{
+			color: #fff;
+		}
+		#services .services-item.nbg:hover{
+			background: #fff;
+		}
+		#services .services-item.nbg:hover p{
+			color: #999;
+		}
+		#services .col-md-12{
+			margin-top: -70px;
+		}
+		#about p.baili-title{
+			font-size: 22px;
+			text-align: left;
+			width: 400px;
+			margin-top: 80px;
+		}
+		#about.content-section.alt-bg-light{
+			background-color: #fff;
+			border-bottom: none;
+		}
+		#about .col-md-6,#about .col-md-12{
+			color: #fff;
+		}
+		#about .row.text-center{
+			margin-bottom: 100px;
+		}
+		#team{
+			border-bottom: 2px #ccc solid;
+		}
+		#team .baili-img{
+			text-align: center;
+		}
+		#team .baili-img img{
+			width: 30%;
+			margin-left: 6%;
+		}
+		#team .baili-img img.xiaoren{
+			width: 40%;
+			margin-left: -66%;
+		}
+		#team .baili-img h3{
+			position: absolute;
+		    margin: 0 auto;
+		    left: 50%;
+		    margin-top: -175px;
+		    margin-left: -126px;
+		}
+		#team .caption{
+			opacity: 0;
+		}
+		#clients .row{
+			margin: 70px 0px 100px 0px;
+		}
+		#contact ul li{
+			color: #aaa;
+			font-size: 12px;
+			line-height: 2;
+		}
+		#contact .highlight{
+			color: #a4253a;
+		}
+		#contact .copyright{
+			width: 86%;
+		}
+		#contact .copynote,#contact .copyright a{
+			color: #aaa;
+			font-size: 12px;
+		}
+		#contact .copyright a:hover{
+			color: #ff204a;
+		}
+		#contact .copynote .container{
+			text-align: center;
+		}
+		footer .row ul li a:hover{
+			color: #fff;
+		}
+
+		/*特效*/
+		#products .products-container span.icon{
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+		#products .products-container span.icon:hover{
+			transform: scale(1.2);
+			background: #fff;
+		}
+		#products .products-container span.icon:hover .icon-3x{
+			color: #ed587e;
+		}
+		#team img.dengpao, #team img.xiaoren{
+			opacity: 0;
+		}
+		#about .lazy.img-responsive{
+			width: 0%;
+		    margin-top: 50%;
+		    margin-left: 50%;
+		}
+		#about .col-md-6 p{
+			opacity: 0;
+			margin-left: -300px;
+		}
+
+	</style>
+
+</head>
+
+<body id="home">
+<!-- Navigation -->
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header pull-left">
+			<a class="navbar-brand page-scroll" href="#page-top">
+
+				<span class="brand-logo"><img src="{php echo tomedia($info['logo'])}" class="img-responsive"></span>
+			</a>
+		</div>
+		<ul class="nav navbar-nav visible-lg">
+			<li>
+				<a href="#about" class="button">关于我们</a>
+			</li>
+
+			<li>
+				<a href="#services" class="button">业务优势</a>
+			</li>
+			<li>
+				<a href="#products" class="button">产品介绍</a>
+			</li>
+			<li>
+				<a href="#team" class="button">公司团队</a>
+			</li>
+
+			<li>
+				<a href="#clients" class="button">合作伙伴</a>
+			</li>
+			<li>
+				<a href="#contact" class="button">联系我们</a>
+			</li>
+			<!-- <li>
+				<a class="button"><span id="register">注册</span>/<span  id="login">登录</span></a>
+			</li> -->
+		</ul>
+		<div class="main-nav pull-right">
+			<div class="button_container toggle">
+				<span class="top"></span>
+				<span class="middle"></span>
+				<span class="bottom"></span>
+			</div>
+		</div>
+		<div class="overlay" id="overlay">
+			<nav class="overlay-menu">
+				<ul>
+					<li>
+						<a href="#about">关于我们</a>
+					</li>
+
+					<li>
+						<a href="#services">业务优势</a>
+					</li>
+					<li>
+						<a href="#products">产品介绍</a>
+					</li>
+					<li>
+						<a href="#team">公司团队</a>
+					</li>
+
+					<li>
+						<a href="#clients">合作伙伴</a>
+					</li>
+					<li>
+						<a href="#contact">联系我们</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!-- /.container -->
+</nav>
+
+<header id="intro-carousel" class="carousel slide">
+
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<!-- Set the first background image using inline CSS below. -->
+			<div class="fill" style="background:#ff4d6d;"></div>
+			<div class="carousel-caption">
+				{php echo html_entity_decode($info['slide_1_txt'])}
+			</div>
+			<div class="overlay-detail"></div>
+		</div>
+		<!-- /.item -->
+
+		<div class="item">
+
+			<div class="fill" style="background:#ff4d6d;"></div>
+			<div class="carousel-caption">
+				{php echo html_entity_decode($info['slide_2_txt'])}</div>
+			<div class="overlay-detail"></div>
+		</div>
+		<!-- /.item -->
+
+		<div class="item">
+			<!-- Set the second background image using inline CSS below. -->
+			<div class="fill" style="background:#ff4d6d;"></div>
+			<div class="carousel-caption">
+				{php echo html_entity_decode($info['slide_3_txt'])}
+			</div>
+			<div class="overlay-detail"></div>
+		</div>
+		<!-- /.item -->
+
+	</div>
+	<!-- Controls -->
+	<a class="left carousel-control squared" href="#intro-carousel" data-slide="prev">
+		<i class="fa icon-angle-left icon-2x"></i>
+	</a>
+	<a class="right carousel-control squared" href="#intro-carousel" data-slide="next">
+		<i class="fa icon-angle-right icon-2x"></i>
+	</a>
+
+	<div class="mouse"></div>
+</header>
+<!-- Products Section -->
+<section id="products" class="products content-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<img class="lazy" src="../addons/jz_homefree/static/images/hallooou_template-iphone_white.png" class="center-block img-responsive">
+			</div>
+			<!-- /.col-md-4 -->
+
+			<div class="col-md-8">
+				<div class="products-container">
+					<div style="font-size:18px;">Product</div>
+					<div class="col-md-12">
+						<h2>
+							产品介绍
+						</h2>
+
+						<!--<h3 class="caption white">Ultricestum urna litora sit sed praesent condimentum eu a et                            scelerisque</h3>-->
+					</div>
+					<!-- /.col-md-12 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-book icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage1'])}
+
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-trophy icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage2'])}
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-group icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage3'])}
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-globe icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage4'])}
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-screenshot icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage5'])}
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+					<div class="col-md-6 product-item wow fadeIn" data-wow-offset="10">
+						<div class="media-left">
+							<span class="icon"><i class="fa icon-credit-card icon-3x"></i></span>
+						</div>
+						<!-- /.media-left -->
+						<div class="media-body">
+							{php echo html_entity_decode($info['advantage6'])}
+						</div>
+						<!-- /.media-body -->
+					</div>
+					<!-- /.col-md-6 -->
+
+				</div>
+				<!-- /.products-container -->
+			</div>
+			<!-- /.col-md-8 -->
+
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container -->
+</section>
+<!-- /.products -->
+<!-- Services Section -->
+<section id="services" class="services content-section">
+	<div class="container">
+		<div class="row text-center">
+			<div style="font-size:18px;height:100px;">Advantage</div>
+			<div class="col-md-12">
+				<h2>平台优势</h2>
+				<!--<h3 class="caption gray">Eleifend mi iaculis parturient etiam volutpat pulvinar eleifend</h3>-->
+			</div>
+			<!-- /.col-md-12 -->
+
+			<div class="container  baili-bg">
+				<div class="row text-center">
+					<div class="col-md-6">
+						<div class="row services-item text-center wow flipInX bg" data-toggle="modal" data-target="#c1" data-wow-offset="10">
+							<!-- <i class="fa icon-cogs icon-3x"></i> -->
+							<i class="icon-3x">1</i>
+							<h4>{$info['yewu_title_1']}</h4>
+							<p>{$info['yewu_content_1']}</p>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-4 -->
+
+					<div class="col-md-6">
+						<div class="row services-item text-center wow flipInX nbg" data-toggle="modal" data-target="#c2" data-wow-offset="10">
+							<!-- <i class="fa icon-dashboard icon-3x "></i> -->
+							<i class="icon-3x">2</i>
+							<h4>{$info['yewu_title_2']}</h4>
+
+							<p>{$info['yewu_content_2']}</p>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-4 -->
+
+					<div class="col-md-6">
+						<div class="row services-item text-center wow flipInX nbg" data-toggle="modal" data-target="#c3" data-wow-offset="10">
+							<!-- <i class="fa icon-bullhorn icon-3x"></i> -->
+							<i class="icon-3x">3</i>
+							<h4>{$info['yewu_title_3']}</h4>
+
+							<p>{$info['yewu_content_3']}</p>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-4 -->
+
+					<div class="col-md-6">
+						<div class="row services-item text-center wow flipInX bg" data-toggle="modal" data-target="#c4" data-wow-offset="20">
+							<!-- <i class="fa icon-coffee icon-3x"></i> -->
+							<i class="icon-3x">4</i>
+							<h4>{$info['yewu_title_4']}</h4>
+							<p>{$info['yewu_content_4']}</p>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.col-md-4 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+</section>
+<!-- /.section -->
+
+
+
+<!-- About Section -->
+<section id="about" class="about content-section alt-bg-light wow fadeInUp" data-wow-offset="10">
+	<div>
+		<div style="font-size:18px;text-align:center;">Introduce</div>
+		<div class="col-md-12" style="text-align:center;">
+			<h2>公司介绍</h2>
+			<!--<h3 class="caption gray">Eleifend mi iaculis parturient etiam volutpat pulvinar eleifend</h3>-->
+		</div>
+	</div>
+	<div style="background: #ff5e7d;margin-top: 100px;">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-md-6">
+					<!--<h3 class="caption gray">Customers in 100+ countries use our services</h3>-->
+					<p class="baili-title p1">简介</p>
+					<p class="p2" style="margin-bottom: 0;font-size:14px;text-align:left;width:400px;">{php echo html_entity_decode($info['about'])}</p><br/><br/>
+
+					<p class="baili-title p3">公司文化</p>
+					<p class="p4" style="margin-bottom: 5px;font-size:14px;text-align:left;width:400px;">{php echo html_entity_decode($info['culture'])}</p>
+
+				</div>
+				<!-- /.col-md-6 -->
+
+				<div class="col-md-6">
+					<!-- Display image -->
+					<img class="lazy img-responsive" src="../addons/jz_homefree/static/images/hallooou_template-iphone_sm.png">
+				</div>
+				<!-- /.col-md-6 -->
+			</div>
+			<!-- /.row -->
+		</div>
+	</div>
+	<!-- /.container -->
+</section>
+<!-- /.section -->
+<!-- Our team Section -->
+<section id="team" class="team content-section">
+	<div class="container">
+		<div class="row text-center">
+			<div style="font-size:18px;">Team</div>
+			<div class="col-md-12">
+				<h2>团队风采</h2>
+
+				<!-- <h3 class="caption gray">一群人，一个梦，一同行。</h3> -->
+			</div>
+			<!-- /.col-md-12 -->
+		</div>
+	</div>
+	<div class="baili-img">
+		<img class="dengpao" src="../addons/jz_homefree/static/images/dengpao.png" alt="">
+		<img class="xiaoren" src="../addons/jz_homefree/static/images/xiaoren.png" alt="">
+		<h3 class="caption gray">一群人，一个梦，一同行。</h3>
+	</div>
+	<div class="container project-container text-center">
+		<div class="team-project-carousel owl-carousel owl-theme popup-gallery">
+			{loop $info['team'] $vo}
+			<div class="item team-project wow fadeIn">
+				<div class="team-member wow fadeIn" data-wow-offset="10">
+					<figure>
+						<img class="lazy" src="{php echo tomedia($vo)}" alt="" class="img-responsive">
+					</figure>
+				</div>
+				<!-- /.team-member -->
+			</div>
+			{/loop}
+		</div>
+		<div class="customNavigation project-navigation text-center">
+			<a class="btn-prev"><i class="fa icon-angle-left icon-2x"></i></a>
+			<a class="btn-next"><i class="fa icon-angle-right icon-2x"></i></a>
+		</div>
+	</div>
+</section>
+<!-- /.our-team -->
+
+<section id="clients" class="our-clients content-section text-center">
+	<div class="container">
+		<div class="row">
+			<div style="font-size:18px;">Partner</div>
+			<div class="col-md-12">
+				<h2>部分合作伙伴</h2>
+			</div>
+			<!-- /.col-md-12-->
+		</div>
+		<!-- /.row -->
+		<div class="row">
+			<img class="lazy" src="{php echo tomedia($info['hezuo'])}" alt="合作伙伴" style="max-width: 100%;height: auto;" />
+		</div>
+	</div>
+	<!-- /.container -->
+</section>
+<!-- /.our-clients -->
+
+<!-- Footer New -->
+<footer id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="row">
+					<div class="col-md-3 company-ico">
+						<div class="company-code"></div>
+					</div>
+					<div class="col-md-9 link">
+						<ul>
+							<li><span class="highlight">邮件联系</span></li>
+							<li>
+
+							</li>
+							<li><a href="###">商务洽谈：bd#juhuivip.com</a></li>
+							<li><a href="###">媒体品牌：pr#juhuivip.com</a></li>
+							<li><a href="###">投诉建议：service#juhuivip.com</a></li>
+							<li><a href="###">人才招募：josb#juhuivip.com</a></li>
+
+						</ul>
+												<ul>
+							<li><span class="highlight">客户服务</span></li>
+							<li>您可在花蒜公众号对话框里咨询商品、订单、售后等服务。</li>
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<ul>
+					<li><span class="highlight">联系方式</span></li>
+					<li><a href="###">{php echo html_entity_decode($info['footinfo'])}</a></li>
+				</ul>
+				<ul>
+					<li><img src="//www.juhuivip.com/attachment/images/3/2018/07/apT0b2pDtyxBPMN8ITD5IBt8nzxD5B.png" width="80"></li>
+					<li><a href="###">扫描二维码下载APP</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="copynote">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-9 copyright">{php echo html_entity_decode($info['copyright'])}
+				</div>
+				<!-- /.col-md-12 -->
+			</div>
+			<!-- /.row -->
+		</div>
+
+		<!-- /.container -->
+	</div>
+	<!-- /.copynote -->
+
+	<div class="nav pull-right scroll-top">
+		<a href="#home" title="滚动到最顶端"><i class="fa icon-angle-up"></i></a>
+	</div>
+
+</footer>
+<!-- /.footer -->
+
+<!-- jQuery -->
+<script src="../addons/jz_homefree/static/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../addons/jz_homefree/static/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../addons/jz_homefree/static/js/wow.min.js"></script>
+<script src="../addons/jz_homefree/static/js/owl.carousel.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.parallax-1.1.3.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.magnific-popup.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.mb.ytplayer.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.countto.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.inview.min.js"></script>
+<script src="../addons/jz_homefree/static/js/pace.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.easing.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.validate.min.js"></script>
+<script src="../addons/jz_homefree/static/js/additional-methods.min.js"></script>
+<script src="../addons/jz_homefree/static/js/jquery.lazyload.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="../addons/jz_homefree/static/js/hallooou.js"></script>
+<script>
+    $("#register").on('click',function(){
+        window.location.href="/web/index.php?c=user&a=register";
+    })
+    $("#login").on('click',function(){
+        window.location.href="/web/index.php?c=user&a=login";
+    })
+</script>
+
+</body>
+
+</html>
+
+<!-- 百里 -->
+<script type="text/javascript">
+	$(function(){
+		$(".media-body .media-body h3").after("<p style='margin:5px 0;'>-</p>");
+
+		var team = $("#team");
+		var team_offSet = team.offset().top;
+
+		var about = $("#about");
+		var about_offSet = about.offset().top;
+
+		var clients = $("#clients");
+		var clients_offSet = clients.offset().top;
+
+		$(window).scroll(function(){
+			if ($(window).scrollTop() > team_offSet && $(window).scrollTop() < clients_offSet){
+				$("#team .dengpao").animate({opacity:"1"}, 1000);
+				setTimeout(function(){
+					$("#team .xiaoren").animate({'opacity':"1",marginLeft:'-36%'}, 1000);
+				}, 500);
+				setTimeout(function(){
+					$("#team .caption").animate({opacity:"1"}, 1000);
+				}, 800);
+			}
+
+			if ($(window).scrollTop() > about_offSet){
+				$("#about .lazy.img-responsive").animate({width:"100%",marginTop:'0', marginLeft:'0'}, 1200);
+
+				$("#about .p4").animate({marginLeft:"0",opacity:"1"},500);
+				setTimeout(function(){
+					$("#about .p3").animate({marginLeft:"0",opacity:"1"}, 700);
+				}, 300);
+				setTimeout(function(){
+					$("#about .p2").animate({marginLeft:"0",opacity:"1"}, 900);
+				}, 600);
+				setTimeout(function(){
+					$("#about .p1").animate({marginLeft:"0",opacity:"1"}, 1100);
+				}, 900);
+			}
+		});
+
+	})
+</script>

@@ -1,0 +1,431 @@
+{template '_header'}
+
+<style>
+
+	#file-avatar {
+
+		opacity: 0;
+
+		position: absolute;
+
+		top: 0;
+
+		left: 0;
+
+		bottom: 0;
+
+		right: 0;
+
+		z-index: 9;
+
+		background: red;
+
+		width: 100%;
+
+	}
+
+	.fui-list-img{
+
+		display: -webkit-box;
+
+		display: -webkit-flex;
+
+		display: flex;
+
+		-webkit-flex-shrink: 0;
+
+		-ms-flex: 0 0 auto;
+
+		-webkit-flex-shrink: 0;
+
+		flex-shrink: 0;
+
+		-webkit-box-lines: single;
+
+		-moz-box-lines: single;
+
+		-webkit-flex-wrap: nowrap;
+
+		flex-wrap: nowrap;
+
+		box-sizing: border-box;
+
+		-webkit-box-align: center;
+
+		-webkit-align-items: center;
+
+		align-items: center;
+
+		margin-right: .6rem;
+
+		color: #aaa;
+
+		position: relative;
+
+		margin-right: 0;
+
+	}
+
+	.fui-list-img img{
+
+		width: 2.5rem;
+
+		height: 2.5rem;
+
+		border-radius: 50%;
+
+	}
+
+	.fui-cell-group .fui-cell  .fui-cell-remark.down:after {
+
+		-webkit-transform: rotate(135deg);
+
+		-ms-transform: rotate(135deg);
+
+		transform: rotate(135deg);
+
+		top:-.1rem;
+
+	}
+
+	.fui-cell-group{
+		margin-top: 1px;
+	}
+
+	.fui-menu-group{
+		position: absolute;
+	    bottom: 0px;
+	    border-top: 1px #ddd solid;
+	}
+	{if is_weixin()}
+	.fui-menu-group{
+		display: none;
+	}
+	{/if}
+
+</style>
+
+<div class='fui-page  fui-page-current'>
+
+    <div class="fui-header">
+
+		<div class="fui-header-left">
+
+			<a class="back" onclick='location.back()'></a>
+
+		</div>
+
+		<div class="title">会员资料</div>
+
+		<div class="fui-header-right">&nbsp;</div>
+
+	</div>
+
+
+	{if $_GPC['updateheadimg'] == 1}
+		<!-- 修改头像和昵称 -->
+		<div class='fui-content'>
+
+			{if is_weixin()}
+
+			<div style="padding:10px;" id='btn-getinfo'>
+				<p>
+				    <span style="font-size: 15px; color: rgb(63, 63, 63);">同步微信头像、昵称
+				    	<span style="color: rgb(63, 63, 63); font-size: 18px;">&nbsp;
+				    		<span style="color: rgb(63, 63, 63); font-size: 16px;"> &gt;</span>
+				    	</span>
+				    </span>
+				</p>
+				<p>
+				    <span style="font-size: 12px; color: rgb(165, 165, 165);">方便好友辨识你的身份</span>
+				</p>
+			</div>
+
+			{/if}
+
+			<div class="fui-list-group">
+
+				<input type="file" name="file-avatar" id="file-avatar" />
+
+				<div class="fui-list" id="btn-avatar">
+
+					<div class="fui-list-inner" style="color: #666;">头像</div>
+
+					<div class="fui-list-img">
+
+						<img src="{$member['avatar']}" id="avatar"
+
+							 data-wechat="{$member['avatar_wechat']}"
+
+							 data-filename="{$member['avatar']}"
+
+							 onerror="this.src='../addons/ewei_shopv2/static/images/noface.png';" />
+
+					</div>
+
+					<div class="angle"></div>
+
+				</div>
+
+			</div>
+
+			<div class="fui-cell-group">
+
+				<div class="fui-cell must ">
+
+					<div class="fui-cell-label ">修改昵称</div>
+
+					<div class="fui-cell-info"><input type="text" class='fui-input' id='nickname' data-wechat="{$member['nickname_wechat']}" placeholder="请输入您的昵称"  value="{$member['nickname']}" /></div>
+
+				</div>
+
+			</div>
+
+			{if !empty($wapset['open'])}
+
+			<div class="fui-cell-group" style="display:none;">
+
+				<div class="fui-cell must">
+
+					<div class="fui-cell-label">手机号</div>
+
+					<div class="fui-cell-info c000">{if empty($member['mobile'])}未绑定手机号{else}{$member['mobile']}{/if}{if !empty($member['mobileverify'])}(已绑定){/if}</div>
+
+					{if !empty($member['mobile'])}
+
+					<input type="hidden" name="mobile" id="mobile" value="{$member['mobile']}"/>
+
+					{/if}
+
+					<a class="fui-cell-remark external" href="{php echo mobileUrl('member/bind')}">{if empty($member['mobile'])}绑定{else}更换绑定{/if}</a>
+
+				</div>
+
+			</div>
+
+			{/if}
+
+
+
+			{if empty($template_flag)}
+
+			<div class="fui-cell-group">
+
+				<div class="fui-cell must ">
+
+					<div class="fui-cell-label ">姓名</div>
+
+					<div class="fui-cell-info c000"><input type="text" class='fui-input' id='realname' name='realname' placeholder="请输入您的姓名"  value="{$member['realname']}" /></div>
+
+				</div>
+
+
+
+				{if empty($wapset['open'])}
+
+					<div class="fui-cell must">
+
+						<div class="fui-cell-label">手机号</div>
+
+						<div class="fui-cell-info c000"><input type="text" class='fui-input' id='mobile' name='mobile' placeholder="请输入您的手机号"  value="{$member['mobile']}" /></div>
+
+					</div>
+
+				{/if}
+
+
+
+				<div class="fui-cell">
+
+					<div class="fui-cell-label">微信号</div>
+
+					<div class="fui-cell-info c000"><input type="text"  class='fui-input'  id='weixin' name='weixin' placeholder="请输入您的微信号"  value="{$member['weixin']}" /></div>
+
+				</div>
+
+				<div class="fui-cell">
+
+					<div class="fui-cell-label">出生日期</div>
+
+					<div class="fui-cell-info c000"><input type="text"  class='fui-input'  id='birthday' name='birthday' placeholder="请选择出生日期"  value="{$member['birthday']}" readonly/></div>
+
+					<div class="fui-cell-remark down" ></div>
+
+				</div>
+
+				<div class="fui-cell">
+
+					<div class="fui-cell-label">身份证号</div>
+
+					<div class="fui-cell-info c000"><input type="text"  class='fui-input'  id='idnumber' name='idnumber' placeholder="请输入您的身份证号"  value="{$member['idnumber']}" /></div>
+
+				</div>
+
+				<div class="fui-cell">
+
+					<div class="fui-cell-label ">所在城市</div>
+
+					<div class="fui-cell-info c000"><input type="text"  class='fui-input'  id='city' name='city' placeholder="请选择城市"  value="{if !empty($show_data) && !empty($member) && !empty($member['city'])}{$member['province']} {$member['city']}{/if}" data-value="{if !empty($show_data)}{$member['datavalue']}{/if}" readonly/></div>
+
+					<div class="fui-cell-remark down" ></div>
+
+				</div>
+
+
+
+			</div>
+
+			{else}
+
+			   {template 'diyform/formfields'}
+
+			{/if}
+
+			<a href='#' id='btn-submit' class='btn btn-danger block mtop'>确认修改</a>
+
+		</div>
+	{else}
+		<!-- 展示头像和昵称 -->
+		<div class='fui-content'>
+
+			<div class="fui-list-group" onclick="window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.info&mid={$_W['mid']}&updateheadimg=1'">
+
+				<div class="fui-list">
+
+					<div class="fui-list-inner" style="color: #666;">头像</div>
+
+					<div class="fui-list-img">
+
+						<img src="{$member['avatar']}"
+
+							 data-wechat="{$member['avatar_wechat']}"
+
+							 data-filename="{$member['avatar']}"
+
+							 onerror="this.src='../addons/ewei_shopv2/static/images/noface.png';" />
+
+					</div>
+
+					<div class="angle"></div>
+
+				</div>
+
+			</div>
+
+			<div class="fui-cell-group" onclick="window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.info&mid={$_W['mid']}&updateheadimg=1'">
+
+				<div class="fui-cell must ">
+
+					<div class="fui-cell-label ">修改昵称</div>
+
+					<div class="fui-cell-info">{$member['nickname']}</div>
+
+				</div>
+
+			</div>
+
+			{if !empty($wapset['open'])}
+
+			<div class="fui-cell-group">
+
+				<div class="fui-cell must">
+
+					<div class="fui-cell-label">手机号</div>
+
+					<div class="fui-cell-info c000">{if empty($member['mobile'])}未绑定手机号{else}<?php echo substr_replace($member['mobile'],'****',3,4)?>{/if}{if !empty($member['mobileverify'])}(已绑定){/if}</div>
+
+					{if !empty($member['mobile'])}
+
+					<input type="hidden" name="mobile" id="mobile" value="{$member['mobile']}"/>
+
+					{/if}
+
+					<a class="fui-cell-remark external" href="{php echo mobileUrl('member/bind')}">{if empty($member['mobile'])}绑定{else}更换绑定{/if}</a>
+
+				</div>
+
+			</div>
+
+			{/if}
+
+
+			<div class="fui-cell-group">
+
+				<div class="fui-cell" onclick="javascript:window.location.href='{php echo mobileUrl('member/address')}'">
+
+					<div class="fui-cell-label" style="width:4.5rem">收货地址管理</div>
+
+					<div class="fui-cell-info c000"></div>
+
+					<a class="fui-cell-remark external" href="#"></a>
+
+				</div>
+
+				<!-- <div class="fui-cell"  onclick="javascript:window.location.href='###'">
+
+					<div class="fui-cell-label" style="width:4.5rem">银行卡信息</div>
+
+					<div class="fui-cell-info c000"></div>
+
+					<a class="fui-cell-remark external" href="{php echo mobileUrl('member/bind')}"></a>
+
+				</div> -->
+
+			</div>
+
+			<!-- <a href='#' id='btn-submit' class='btn btn-danger block mtop'>确认修改</a> -->
+
+			<div class="fui-menu-group" style="margin-top: 20px;">
+	            <a class="fui-menu-item" style=" color: #ff204a;" href="./index.php?i=2&amp;c=entry&amp;m=ewei_shopv2&amp;do=mobile&amp;r=account.logout&amp;mid=190" data-nocache="true"> 退出登录</a>
+	    	</div>
+
+		</div>
+	{/if}
+
+	<script language='javascript'>
+
+		require(['biz/member/info'], function (modal) {
+
+		  	modal.init({
+
+			    new_area:{php echo $new_area},
+
+			    returnurl:"{php echo $returnurl}",
+
+			    template_flag: {php echo intval($template_flag)},
+
+				wapopen: {php echo intval($wapset['open'])}
+
+			});
+
+	});
+
+</script>
+
+	<script language='javascript'>
+
+        require(['biz/member/info'], function (modal) {
+
+            modal.initFace({});
+
+        });
+
+
+        $(function(){
+        	$("#btn-submit").click(function(){
+        		var idnumber = $("#idnumber").val();
+        		if(idnumber)
+        		{
+        			$.post("{php echo mobileUrl('member/bailiexp/addIdNumber')}", {'idnumber':idnumber}, function(){})
+        		}
+        	});
+        })
+
+	</script>
+
+</div>
+
+{template '_footer'}
+
+
+

@@ -1,0 +1,532 @@
+<!-- 原始模板为.old.html 该页面为后期修改模板 -->
+{if empty($diyitem['params']['style']) || $diyitem['params']['style']=='default1'}
+
+    <div class="headinfo commission" style="background-color: {$diyitem['style']['background']};">
+
+        <div class="userinfo" style="border-bottom: 0.5px solid {$diyitem['style']['textcolor']};">
+
+            <div class="fui-list">
+
+                <div class="fui-list-media"><img src="{$diyitem['params']['avatar']}"></div>
+
+                <div class="fui-list-info">
+
+                    <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['nickname']}</div>
+
+                    <div class="subtitle" style="color: {$diyitem['style']['textlight']};">&lt;{$diyitem['params']['levelname']}&gt;</div>
+
+                    {if empty($diyitem['params']['hideup'])}
+
+                    <div class="text" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['upname']}: {$diyitem['params']['upmember']}</div>
+
+                    {/if}
+
+                    {if $diyitem['params']['hideicode'] == '0'}
+
+                    <div class="text" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['texticode']}：{if p("offic")}{$diyitem['params']['mobile']}{else}{$diyitem['params']['mid']}{/if}</div>
+
+                    {/if}
+
+                </div>
+
+            </div>
+
+            {if !empty($diyitem['params']['seticon']) && !empty($diyitem['params']['setlink'])}
+
+                <a class="setbtn external" href="{$diyitem['params']['setlink']}"><i class="icon {$diyitem['params']['seticon']}"></i></a>
+
+            {/if}
+
+
+
+        </div>
+
+        <div class="userblock">
+
+            <div class="line total">
+
+                <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['textsuccesswithdraw']}({$diyitem['params']['textyaun']})</div>
+
+                <div class="num" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['successwithdraw']}</div>
+
+            </div>
+
+            <div class="line usable">
+
+                {if !empty($diyitem['params']['centernav'])}
+
+                    <a class="btn external" href="{$diyitem['params']['centernavlink']}">{$diyitem['params']['centernav']}</a>
+
+                {/if}
+
+                <div class="text">
+
+                    <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['textcanwithdraw']}({$diyitem['params']['textyaun']})</div>
+
+                    <div class="num" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['canwithdraw']}</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{elseif $diyitem['params']['style']=='default2'}
+    <?php $baili_diyitem = $diyitem['params']; ?>
+
+    <div class="headinfo-m" style="background: {$diyitem['style']['background']}; {if !empty($diyitem['style']['background'])}border: none;{/if}">
+
+        {if !empty($diyitem['params']['seticon']) && !empty($diyitem['params']['setlink'])}
+
+        <a class="setbtn" style="color: {$diyitem['style']['textcolor']};" href="{$diyitem['params']['setlink']}" data-nocache="true"><i class="icon {$diyitem['params']['seticon']}"></i></a>
+
+        {/if}
+
+        <div class="child">
+
+            <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['textsuccesswithdraw']}</div>
+
+            <div class="num" style="color: {$diyitem['style']['textlight']};">{$diyitem['params']['successwithdraw']}</div>
+
+            {if !empty($diyitem['params']['leftnav'])}
+
+            <a class="btn" style="color: {$diyitem['style']['textcolor']}; border-color: {$diyitem['style']['textcolor']};" href="{$diyitem['params']['leftnavlink']}" data-nocache="true">{$diyitem['params']['leftnav']}</a>
+
+            {/if}
+
+        </div>
+
+        <div class="child userinfo" style="color: {$diyitem['style']['textcolor']};">
+
+            <div class="face {$diyitem['style']['headstyle']}"><img src="{$diyitem['params']['avatar']}"></div>
+
+            <div class="name">{$diyitem['params']['nickname']}</div>
+
+            <div class="level">[{$diyitem['params']['levelname']}]</div>
+
+            {if empty($diyitem['params']['hideup'])}
+
+            <div class="level">{$diyitem['params']['upname']}: {$diyitem['params']['upmember']}</div>
+
+            {/if}
+
+            {if $diyitem['params']['hideicode'] == '0'}
+
+            <div class="text" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['texticode']}：{if p("offic")}{$diyitem['params']['mobile']}{else}{$diyitem['params']['mid']}{/if}</div>
+
+            {/if}
+
+        </div>
+
+        <div class="child">
+
+            <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['params']['textcanwithdraw']}</div>
+
+            <div class="num" style="color: {$diyitem['style']['textlight']};">{$diyitem['params']['canwithdraw']}</div>
+
+            {if !empty($diyitem['params']['rightnav'])}
+
+            <a class="btn" style="color: {$diyitem['style']['textcolor']}; border-color: {$diyitem['style']['textcolor']};" href="{$diyitem['params']['rightnavlink']}" data-nocache="true">{$diyitem['params']['rightnav']}</a>
+
+            {/if}
+
+        </div>
+
+    </div>
+    {if $_GPC['t'] == 1}
+        <style type="text/css">
+            .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+            .clearfloat{zoom:1}
+            .baili-hsvip .vipdiv{
+
+            }
+            .baili-hsvip .vipdiv .baili-vip-first{
+                margin: 0 10px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span{
+                float: left;
+                color: #fff;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.avatar{
+                width: 17%;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.yaoqincode{
+                width: 63%;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.yaoqincode p{
+                height: 25px;
+                line-height: 25px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.yaoqincode .copy{
+                font-size: 12px;
+                background-color: #fff;
+                background-color: rgba(255,255,255,0.2);
+                padding: 0px 10px;
+                border-radius: 15px;
+                height: 20px;
+                line-height: 20px;
+                border: none;
+                margin: 3px 5px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.yaoqincode .copy i{
+                font-style:normal;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.yaoqincode #invitation_code
+            {
+                float: right;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.shop{
+                width: 20%;
+                height: 50px;
+                padding-top: 27px;
+                color: #fff;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.shop a{
+                color: #fff;
+            }
+            .baili-hsvip .vipdiv .baili-vip-first span.avatar img{
+                width: 80%;
+                border-radius: 50%;
+            }
+            .baili-hsvip .vipdiv .baili-vip-second{
+                height: 135px;
+                clear: both;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                padding: 20px 0px 0px 40px;
+                color: #9B7A48;
+            }
+            .baili-hsvip .vipdiv .suanhua{
+                background-image: url(../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/suanhua@3x.png);
+            }
+            .baili-hsvip .vipdiv .suanmiao{
+                background-image: url(../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/suanmiao@3x.png);
+            }
+            .baili-hsvip .vipdiv .suantou{
+                background-image: url(../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/suantou@3x.png);
+            }
+            .baili-hsvip .vipdiv .baili-vip-second .byxse{
+                font-size: 14px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-second .money{
+                font-size: 16px;
+                color: #F02B46;
+            }
+            .baili-hsvip .vipdiv .baili-vip-second .qr img{
+                width: 22px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-second .jiangli{
+                border: 1px rgba(209,167,113,1) solid;
+                padding: 0px 10px;
+                border-radius: 4px;
+                margin-left: -12px;
+                font-size: 12px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third{
+                margin-top: -10px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third div{
+                float: left;
+                width: 33.33%;
+                background-color: #fff;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third div.money{
+                width: 100%;
+                padding: 10px;
+                text-align: center;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third div.money p.jin-e{
+                font-size: 16px;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third div.money p.jin-e-1{
+                color: #F02B46
+            }
+            .baili-hsvip .vipdiv .baili-vip-third div.money p.jin-e-txt{
+                color: #666666;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third.fourth .money{
+                border-top: 1px #eee solid;
+            }
+            .baili-hsvip .vipdiv .baili-vip-third.fourth .money div{
+                width: 50%;
+            }
+
+            /*分享二维码弹出层*/
+            .baili-vip-share-qr .bg{
+                display: none;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                z-index:1001;
+                -moz-opacity: 0.7;
+                opacity:.70;
+                filter: alpha(opacity=70);
+            }
+
+            .baili-vip-share-qr .show{
+                display: none;
+                position: absolute;
+                top: 5%;
+                left: 10%;
+                width: 80%;
+                height: auto;
+                z-index:1002;
+                overflow: auto;
+            }
+            .baili-vip-share-qr .show img{
+                width: 100%;
+            }
+            .baili-vip-share-qr .btn1,.baili-vip-share-qr .btn2{
+                display: none;
+                position: absolute;
+                top: 60%;
+                left: 30%;
+                width: 40%;
+                z-index:1002;
+                overflow: auto;
+                border: 1px #fff solid;
+                border-radius: 4px;
+                text-align: center;
+                height: 35px;
+                line-height:35px;
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+            .baili-vip-share-qr .btn1 a,.baili-vip-share-qr .btn2 a{
+                color: #fff
+            }
+            .baili-vip-share-qr .btn2{
+                margin-top: 60px;
+            }
+        </style>
+        <div class="baili-hsvip" style="background: {$diyitem['style']['background']}; {if !empty($diyitem['style']['background'])}border: none;{/if}">
+
+            {if !empty($diyitem['params']['seticon']) && !empty($diyitem['params']['setlink'])}
+
+            <a class="setbtn clearfloat" style="color: {$diyitem['style']['textcolor']};" href="{$diyitem['params']['setlink']}" data-nocache="true">
+            <i class="icon {$diyitem['params']['seticon']}" style="float: right;padding: 5px 10px;"></i>
+            </a>
+
+            {/if}
+
+            <div class="vipdiv">
+                <div class="baili-vip-first">
+                    <span class="avatar">
+                        <img src="{$diyitem['params']['avatar']}" alt="会员头像">
+                    </span>
+                    <span class="yaoqincode">
+                        <p>{$diyitem['params']['nickname']}</p>
+                        <p>
+                            <!-- <span>邀请码：{if p("offic")}{$diyitem['params']['mobile']}{else}{$diyitem['params']['mid']}{/if}</span> -->
+                            <span>邀请码：<span id="invitation_code"></span></span>
+                            <a href="javascript:;" class="btn  btn-op btn-operation js-clip copy" data-url="ABC123456" id="copy_text">
+                                <span data-toggle="tooltip" data-placement="top" data-original-title="复制ID" aria-describedby="tooltip953318">
+                                    <i>复制</i>
+                                </span>
+                            </a>
+                        </p>
+                    </span>
+
+                    <!-- 复制功能 -->
+                    <input type="text" id="text_input" value="" style="position: absolute;top: -50px;" />   <!-- 隐藏复制内容文本框 -->
+                    <script type="text/javascript">
+                        var inputElem = document.getElementById('text_input');  // 隐藏复制内容文本框
+                        var btnElem = document.getElementById('copy_text');     // copy按钮ID
+                        btnElem.addEventListener('click', function() {
+                          if(!document.execCommand) {
+                            console.error('copy unsupport');
+                            return;
+                          }
+                          inputElem.select();
+                          var result = document.execCommand('copy');
+                          $("#text_input").blur();
+                          if(result) {
+                            alert('复制成功');
+                          } else {
+                            alert('复制失败，请长按手动复制');
+                          }
+                        });
+                    </script>
+                    <!-- <span class="shop">
+                        <a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.myshop&mid={$diyitem['params']['mid']}">蒜店管理 ></a>
+                    </span> -->
+                </div>
+                <div class="baili-vip-second suantou" data-class="suantou">
+                    <div class="byxse">本月收益(元)</div>
+                    <div class="money">0.00</div>
+                    <div class="qr" onclick="showShareQrDiv()">
+                        <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/ewm@3x.png" alt="二维码">
+                    </div>
+                    <!-- <span class="jiangli">
+                        销售收入还差***元即可获得奖励 >
+                    </span> -->
+                </div>
+                <div class="baili-vip-third clearfloat" onclick="window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw&mid={$_W['mid']}'">
+                    <div class="money">
+                        <div>
+                            <p class="jin-e jin-e-1">0.00</p>
+                            <p class="jin-e-txt">累计收益(元)</p>
+                        </div>
+                        <div>
+                            <p class="jin-e jin-e-4">0.00</p>
+                            <p class="jin-e-txt">今日收益(元)</p>
+                        </div>
+                        <div>
+                            <p class="jin-e jin-e-5">0.00</p>
+                            <p class="jin-e-txt">本周收益(元)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="baili-vip-third fourth clearfloat" onclick="window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw&mid={$_W['mid']}'">
+                    <div class="money">
+                        <div>
+                            <p class="jin-e jin-e-2">{$diyitem['params']['canwithdraw']}</p>
+                            <p class="jin-e-txt">可提现(元)</p>
+                        </div>
+                        <div>
+                            <p class="jin-e jin-e-3">0.00</p>
+                            <p class="jin-e-txt">待入账(元)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="baili-vip-share-qr">
+            <div class="container_div" onclick="hideShareQrDiv()">
+                <div class="bg"></div>
+                <div class="show">
+                    <img src="" alt="邀请蒜头">
+                </div>
+                <!-- <div class="btn1">
+                    <a href="###" download="<?php echo time(); ?>">保存到相册</a>
+                </div> -->
+                <!-- <div class="btn1" style="border: none;top: 55%;width: 50%;left: 25%;">
+                    <a href="###">长按图片保存到相册</a>
+                </div> -->
+                <!-- <div class="btn2" onclick="hideShareQrDiv()">
+                    <a href="javascript:;">关闭</a>
+                </div> -->
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(function(){
+                //获取分销等级
+                var getagentinfo_purl = "{$_W['siteroot']}app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.bailiexp.getagentinfo";
+                $.post(getagentinfo_purl, function(res){
+                    $(".baili-vip-second").removeClass('suantou');
+                    if(res.status == 1)
+                    {
+                        $(".baili-vip-second").addClass(res.result.class);
+                    }
+                    else{
+                        $(".baili-vip-second").addClass('suantou');
+                    }
+                }, 'json');
+
+                //获取邀请码
+                var invitation_code_purl = "{$_W['siteroot']}app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=member.setagentid.getinvitationcode";
+                $.post(invitation_code_purl, function(res){
+                    if(res.status == 1)
+                    {
+                        $("#invitation_code").text(res.result.invitation_code);
+                        $("#text_input").val(res.result.invitation_code);
+                    }
+                }, 'json');
+
+                //获取邀请注册二维码
+                var get_invitation_qr_url = "{$_W['siteroot']}app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.qrcode&mid={$_W['mid']}";
+                $.post(get_invitation_qr_url, {'goodsid':0}, function(res){
+                    //动态设置值
+                    $(".baili-vip-share-qr .show img").attr('src', res.result.img);
+                    $(".baili-vip-share-qr .btn1 a").attr('href', res.result.img);
+                    //动态设置二维码高度
+                    // var y = ( $(".baili-vip-share-qr .show").width() * 420 ) / 640;
+                    // $(".baili-vip-share-qr .show").css({'height':y,"overflow":'hidden'});
+
+                }, 'json');
+
+                //待入账
+                //控制器文件 /addons/ewei_shopv2/plugin/commission/core/mobile/withdraw_baili.php
+                var dairuzhang_purl = "{$_W['siteroot']}app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.withdraw_baili&mid={$_W['mid']}";
+                $.post(dairuzhang_purl, function(res){
+                    $(".baili-vip-third.fourth .jin-e-3").text(res);
+                });
+
+                //收益
+                var month_money_purl = "{$_W['siteroot']}app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission.order_baili&mid={$_W['mid']}";
+                $.post(month_money_purl, function(res){
+                    //本月
+                    $(".baili-hsvip .vipdiv .baili-vip-second .money").text(res.result.month_price);
+                    //本周
+                    $(".baili-hsvip .vipdiv .baili-vip-third .money div p.jin-e-5").text(res.result.week_price);
+                    //今日
+                    $(".baili-hsvip .vipdiv .baili-vip-third .money div p.jin-e-4").text(res.result.today_price);
+                }, 'json');
+
+            });
+
+            //分享二维码弹出层
+            function showShareQrDiv() {
+                $(".baili-vip-share-qr .bg").css('display','block');
+                $(".baili-vip-share-qr .show").css('display','block');
+                $(".baili-vip-share-qr .btn1,.baili-vip-share-qr .btn2").css('display','block');
+
+                // （屏幕高度-图片高度）/ 2
+                var y = ( $(window).height() - $(".container_div .show img").height() - 50) / 2;
+                y += 'px';
+                $(".container_div .show").css({'top':y});
+            }
+
+            function hideShareQrDiv(){
+                $(".baili-vip-share-qr .bg").css('display','none');
+                $(".baili-vip-share-qr .show").css('display','none');
+                $(".baili-vip-share-qr .btn1,.baili-vip-share-qr .btn2").css('display','none');
+            }
+
+        </script>
+    {/if}
+
+{elseif $diyitem['params']['style']=='default3'}
+
+    <div class="headinfo">
+
+        <div class="userinfo" style="height: auto;">
+
+            <div class="fui-list">
+
+                <div class="fui-list-media"><img src="{$diyitem['params']['avatar']}"></div>
+
+                <div class="fui-list-info" style="width: 12rem">
+
+                    <div class="title">{$diyitem['params']['nickname']}</div>
+
+                    {if empty($diyitem['params']['hideup'])}
+
+                        <div class="text">{$diyitem['params']['upname']}: {$diyitem['params']['upmember']}<br></div>
+
+                    {/if}
+
+                    <div class="subtitle">{$diyitem['params']['levelname']}</div>
+
+                </div>
+
+            </div>
+
+            {if !empty($diyitem['params']['seticon']) && !empty($diyitem['params']['setlink'])}
+
+                <a class="setbtn external" href="{$diyitem['params']['setlink']}" data-nocache="true"><i class="icon {$diyitem['params']['seticon']}"></i></a>
+
+            {/if}
+
+        </div>
+
+    </div>
+
+{/if}

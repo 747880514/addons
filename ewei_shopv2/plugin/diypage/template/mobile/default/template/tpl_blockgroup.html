@@ -1,0 +1,163 @@
+
+{if !empty($diyitem['data'])}
+
+    <div class="fui-block-group col-{$diyitem['params']['rownum']} {php echo $diyitem['params']['newstyle']==1? 'new': ''}" style="margin-top:0; overflow: hidden; background-color: {$diyitem['style']['background']};">
+
+        {loop $diyitem['data'] $blockgroupitem}
+
+            <a class="fui-block-child {php echo $diyitem['params']['newstyle']==1? 'new': ''}" style="background-color: {$diyitem['style']['background']};" href="{$blockgroupitem['linkurl']}" data-nocache="true">
+
+                <div class="icon" style="color: {$blockgroupitem['iconcolor']};"><i class="icon {$blockgroupitem['iconclass']}"></i></div>
+
+
+
+                {if $diyitem['params']['newstyle']==1}
+
+                <div class="text new">
+
+                    <div class="title" style="color: {$blockgroupitem['textcolor']};">{$blockgroupitem['text']}</div>
+
+                    {if !empty($blockgroupitem['tiptext'])}
+
+                    <div class=""><span style="color: {$diyitem['style']['tipcolor']}">{$blockgroupitem['tipnum']}</span> {$blockgroupitem['tiptext']}</div>
+
+                    {/if}
+
+                </div>
+
+                {else}
+
+                    <div class="title" style="color: {$blockgroupitem['textcolor']};">{$blockgroupitem['text']}</div>
+
+                    <div class="text">
+
+                        {if !empty($blockgroupitem['tiptext'])}
+
+                        <span style="color: {$diyitem['style']['tipcolor']}">{$blockgroupitem['tipnum']}</span>{$blockgroupitem['tiptext']}
+
+                        {/if}
+
+                    </div>
+
+                {/if}
+
+            </a>
+
+        {/loop}
+
+    </div>
+
+{/if}
+
+{if $_GPC['t'] == 1}
+    <style type="text/css">
+        .baili-vip-div2 .baili-vip-fourth{
+            background-color: #fff;
+            margin: 10px;
+            padding: 25px 0px;
+            border-radius: 10px;
+        }
+        .baili-vip-div2 .baili-vip-fourth div.content{
+            float: left;
+            width: 33.33%;
+            text-align: center;
+        }
+        .baili-vip-div2 .baili-vip-fourth div.content img{
+            width: 50px;
+            height: 50px;
+        }
+        .baili-vip-div2 .baili-vip-fifth{
+            position: absolute;
+            margin: 0 10px 10px 10px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        .baili-vip-div2 .baili-vip-fifth img{
+            width: 50%;
+            padding: 10px;
+            float: left;
+        }
+        .fui-block-group{
+            border-bottom: none!important;
+            border-top: 1px #eee solid;
+            margin: 10px 0px;
+        }
+        .suandui_num,.dingdan_num{
+            font-size: 12px;
+        }
+        .suandui_num span,.dingdan_num span{
+            color: #ff204a;
+        }
+    </style>
+    <?php
+        //新页面获取原始模板数据
+        foreach ($diyitem['data'] as $key => $value)
+        {
+            // 蒜队标识
+            if($key == 'C1475976212309')
+            {
+                $suandui['linkurl'] = $value['linkurl'];
+                $suandui['tipnum'] = $value['tipnum'];
+            }
+            // 订单明细标识
+            if($key == 'C1475976212306')
+            {
+                $dingdanmingxi['linkurl'] = $value['linkurl'];
+                $dingdanmingxi['tipnum'] = $value['tipnum'];
+            }
+            // 学院
+            // TODO
+
+            //累计收益
+            if($key == 'C1475976212305')
+            {
+                $leijishouyi['tipnum'] = $value['tipnum'] > 0 ? $value['tipnum'] : '0.00';
+                $leijishouyi['linkurl'] = $value['linkurl'];
+            }
+        }
+    ?>
+    <div class="baili-vip-div2">
+        <div class="baili-vip-fourth clearfloat">
+            <div class="order-detail clearfloat">
+                <div class="content" onclick="javascript:window.location.href='{$suandui['linkurl']}'">
+                    <p class="jin-e jin-e-1">
+                        <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/suandui@3x.png" alt="蒜对">
+                    </p>
+                    <p class="jin-e-txt">蒜队</p>
+                    <p class="suandui_num">
+                        <span>{$suandui['tipnum']}</span>人
+                    </p>
+                </div>
+                <div class="content" onclick="javascript:window.location.href='{$dingdanmingxi['linkurl']}'">
+                    <p class="jin-e">
+                        <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/dingdan@3x.png" alt="订单明细">
+                    </p>
+                    <p class="jin-e-txt">订单明细</p>
+                    <p class="dingdan_num">
+                        <span>{$dingdanmingxi['tipnum']}</span>笔
+                    </p>
+                </div>
+                <!-- 蒜圈.公告 -->
+                <!-- <div class="content" onclick="javascript:window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=43'"> -->
+                <div class="content" onclick="javascript:window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=sns&mid=1983'">
+                    <p class="jin-e">
+                        <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/xueyuan@3x.png" alt="学院">
+                    </p>
+                    <p class="jin-e-txt">学院</p>
+                </div>
+            </div>
+        </div>
+        <div class="baili-vip-fifth clearfloat">
+            <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/zssf@3x.png" alt="蒜粉专属" onclick="javascript:window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=53'">
+            <img src="../addons/ewei_shopv2/plugin/diypage/static/images/baili-css/yqst@3x.png" alt="邀请蒜头" onclick="javascript:window.location.href='./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=11'">
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            //累计收益(元)
+            // var ljsy = Number( $("#baili-vip-data a.fui-block-child").eq(0).find('div.text span').text() );;
+            $(".baili-hsvip .vipdiv .baili-vip-third p.jin-e-1").text(  "{$leijishouyi['tipnum']}" );
+            $(".baili-hsvip .vipdiv .baili-vip-third p.jin-e-1").parent().attr('onclick', "window.location.href='{$leijishouyi['linkurl']}'");
+        })
+    </script>
+{/if}

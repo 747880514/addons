@@ -1,0 +1,182 @@
+{if empty($diyitem['params']['style']) || $diyitem['params']['style']=='default1'}
+	<style type="text/css">
+		.member_header{
+			border-radius: 0;
+		}
+		.baili-menmber-addhead{
+			background-color: #fff;
+		    height: 50px;
+		    line-height: 50px;
+		    margin: 0 10px;
+		    border-radius: 10px;
+		    padding-left: 20px;
+		    font-size: 16px;
+		    margin-top: -22px;
+		    z-index: 110;
+		    position: relative;
+		}
+		.baili-menmber-addhead img{
+			position: absolute;
+			margin-top: 8px;
+			width: 30px;
+		}
+		.baili-menmber-addhead span{
+			margin-left: 40px;
+			font-size: 14px;
+			color: #4c4c4c;
+		}
+    div.fui-cell-group{
+      margin-left: 10px;
+      margin-right: 10px;
+      border-top-left-radius:10px;
+      border-top-right-radius:10px;
+      -webkit-border-top-left-radius:10px;
+      -webkit-border-top-right-radius:10px;
+    }
+    div.fui-icon-group{
+      margin: 0 10px;
+      border-bottom-left-radius:10px;
+      border-bottom-right-radius:10px;
+      -webkit-border-bottom-left-radius:10px;
+      -webkit-border-bottom-right-radius:10px;
+    }
+    div.baili-menmber-addfooter-html{
+      margin: 10px 10px 50px 10px;
+      text-align: center;
+      font-size: 20px;
+      color: #AE7C37;
+      border: 1px #AE7C37 solid;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 6px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      background-color: #FBF4EA;
+    }
+    div.fui-icon-group.noborder.col-4{
+      border-radius: 10px;
+    }
+	</style>
+  <script type="text/javascript">
+    // 追加我想供货成为品牌合作商
+    // $(function(){
+    //   $("div.bladdhtml").remove();
+    //   var bladdhtml = $("#baili-menmber-addfooter").html();
+    //   bladdhtml = "<div class='bladdhtml'>"+bladdhtml+"</div>";
+    //   $(".default-items").append( bladdhtml );
+    // });
+  </script>
+   <div style="overflow: hidden;height: 8.5rem;position: relative;background: #fff">
+
+       <div class="headinfo" style="{if !empty($diyitem['style']['background'])}border: none;{/if};z-index: 100">
+
+           {if !empty($diyitem['params']['seticon'])}
+
+           <a class="setbtn" style="color: {$diyitem['style']['textcolor']};" href="{php echo empty($diyitem['params']['setlink'])?mobileUrl('member/info'):$diyitem['params']['setlink'];}" data-nocache="true"><i class="icon {$diyitem['params']['seticon']}"></i></a>
+
+           {/if}
+
+           <div class="child">
+
+               <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['info']['textmoney']}</div>
+
+               <div class="num" style="color: {$diyitem['style']['textlight']};">{$diyitem['info']['money']}</div>
+
+               {if !empty($diyitem['params']['leftnav'])}
+
+                    <a class="btn" style="color: {$diyitem['style']['textcolor']}; border-color: {$diyitem['style']['textcolor']};" href="{php echo empty($diyitem['params']['leftnavlink'])?mobileUrl('member/recharge'):$diyitem['params']['leftnavlink'];}" data-nocache="true">{$diyitem['params']['leftnav']}</a>
+
+               {/if}
+
+           </div>
+
+           <div class="child userinfo" style="color: {$diyitem['style']['textcolor']};">
+
+               <a href="{php echo mobileUrl('member/info')}" data-nocache="true" style="color: {$diyitem['style']['textcolor']};">
+
+                   <div class="face {$diyitem['style']['headstyle']}"><img src="{$diyitem['info']['avatar']}" onerror="this.src='../addons/ewei_shopv2/static/images/noface.png'"></div>
+
+                   <div class="name">{$diyitem['info']['nickname']}</div>
+
+               </a>
+
+               {if !empty($diyitem['params']['levellink'])}
+
+               <a class="level" href="{$diyitem['params']['levellink']}">[{$diyitem['info']['levelname']}] <i class="icon icon-question1" style="font-size: 0.6rem;"></i></a>
+
+               {else}
+
+               <div class="level">[{$diyitem['info']['levelname']}]</div>
+
+               {/if}
+
+           </div>
+
+           <div class="child">
+
+               <div class="title" style="color: {$diyitem['style']['textcolor']};">{$diyitem['info']['textcredit']}</div>
+
+               <div class="num" style="color: {$diyitem['style']['textlight']};">{$diyitem['info']['credit']}</div>
+
+               {if !empty($diyitem['params']['rightnav'])}
+
+                    <a class="btn" style="color: {$diyitem['style']['textcolor']}; border-color: {$diyitem['style']['textcolor']};" href="{php echo empty($diyitem['params']['rightnavlink'])?mobileUrl('creditshop'):$diyitem['params']['rightnavlink'];}" data-nocache="true">{$diyitem['params']['rightnav']}</a>
+
+               {/if}
+
+           </div>
+
+       </div>
+
+       <div class="member_header"style="background: {$diyitem['style']['background']};border-color: {$diyitem['style']['background']};"></div>
+
+   </div>
+
+   <div class="baili-menmber-addhead" onclick="window.location.href='/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=commission'">
+   		<img src="/addons/ewei_shopv2/plugin/diypage/static/images/baili-css/st@2x.png" alt="">
+   		<span>成长为蒜头，自购省钱，分享赚钱 ></span>
+   </div>
+
+   <div id="baili-menmber-addfooter" style="display:none;">
+      <div class="baili-menmber-addfooter-html" onclick="window.location.href='/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=diypage&id=63'">
+        我想供货成为品牌合作商
+      </div>
+
+
+   </div>
+
+{elseif $diyitem['params']['style']=='default2'}
+
+    <div class="headinfo style-2" style="background: {$diyitem['style']['background']}; {if !empty($diyitem['style']['background'])}border: none;{/if}">
+
+        {if !empty($diyitem['params']['seticon'])}
+
+        <a class="setbtn" style="color: {$diyitem['style']['textcolor']};" href="{$diyitem['params']['setlink']}" data-nocache="true"><i class="icon {$diyitem['params']['seticon']}"></i></a>
+
+        {/if}
+
+        <div class="face {$diyitem['style']['headstyle']}"><img src="{$diyitem['info']['avatar']}" onerror="this.src='../addons/ewei_shopv2/static/images/noface.png'"></div>
+
+        <div class="inner" style="color: {$diyitem['style']['textcolor']};">
+
+            <div class="name">{$diyitem['info']['nickname']}</div>
+
+            {if !empty($diyitem['params']['levellink'])}
+
+            <a class="level" href="{$diyitem['params']['levellink']}" style="color: {$diyitem['style']['textcolor']};">[{$diyitem['info']['levelname']}] <i class="icon icon-question1" style="font-size: 0.6rem;"></i></a>
+
+            {else}
+
+            <div class="level">[{$diyitem['info']['levelname']}]</div>
+
+            {/if}
+
+            <div class="credit">{$diyitem['info']['textmoney']}: <span style="color: {$diyitem['style']['textlight']};">{$diyitem['info']['money']}</span></div>
+
+            <div class="credit">{$diyitem['info']['textcredit']}: <span style="color: {$diyitem['style']['textlight']};">{$diyitem['info']['credit']}</span></div>
+
+        </div>
+
+    </div>
+
+{/if}

@@ -1,0 +1,347 @@
+
+<style type="text/css">
+    .table.table-hover.table-responsive tr th{
+        text-align: left;
+    }
+</style>
+<table class="table table-hover  table-responsive ">
+
+    <thead class="navbar-inner">
+
+    <tr>
+
+        <th style="width:25px;">{if $is_check == 1}<input type='checkbox' class="checkall"/>{/if}</th>
+
+        <th style='width:180px;'>订单编号</th>
+
+        <th>订单金额</th>
+
+        <!-- <th>可提现金额</th> -->
+        <th class="merchant_hide">收入</th>
+
+        <th>成本</th>
+
+        <th>邮费</th>
+
+        <th class="merchant_hide">抽成比例</th>
+
+        <th>抽成后获得金额</th>
+
+        <th>订单完成时间</th>
+
+        <th style='width:80px;'>状态</th>
+
+    </tr>
+
+    </thead>
+
+</table>
+
+<?php $dispatchprice_total = 0;//总邮费 ?>
+
+<div style="max-height:500px;overflow:auto;border:none; overflow-x:hidden;">
+
+    <table class="table table-hover  table-responsive " style="table-layout: fixed;border:none;">
+
+        <tbody>
+
+        {loop $list $row}
+        <?php $dispatchprice_total += $row['dispatchprice']; ?>
+        <tr class="orderlist baili_key_{$row['id']}" data="{$row['id']}">
+
+            <td style="width:25px;">{if $is_check == 1}<input type='checkbox' class="checkitem" value="{$row['id']}"/>{/if}</td>
+
+            <td style="width:180px;" data-toggle="tooltip" title="{$row['nickname']}" style="width:80px;">
+
+                {$row['ordersn']}
+
+            </td>
+
+            <td>{$row['orderprice']}</td>
+
+            <td class="merchant_hide">{$row['realprice']}</td>
+
+            <td class="costprice">0</td>
+
+            <td>{$row['dispatchprice']}</td>
+
+            <td class="merchant_hide">{$row['payrate']}%</td>
+
+            <!-- <td class="realpricerate" data-realpricerate="{$row['payrate']}" data-dispatchprice="{$row['dispatchprice']}">{php echo round($row['realpricerate'],2)}</td> -->
+            <td class="realpricerate" data-realpricerate="{$row['payrate']}" data-dispatchprice="{$row['dispatchprice']}">0</td>
+
+            <td>{php echo date('Y-m-d H:i:s',$row['finishtime'])}</td>
+
+            <td style='width:80px;cursor: pointer'>{if empty($row['merchapply'])}
+
+                <span class="label label-default">等待</span>
+
+                {elseif $row['merchapply']==1}
+
+                <span class="label label-primary">提交申请</span>
+
+                {elseif $row['merchapply']==-1}
+
+                <span class="label label-danger">拒绝申请</span>
+
+                {elseif $row['merchapply']==2}
+
+                <span class="label label-primary">通过申请</span>
+
+                {elseif $row['merchapply']==3}
+
+                <span class="label label-primary">完成打款</span>
+
+                {/if}
+
+            </td>
+
+        </tr>
+
+
+
+        <tr >
+
+            <td colspan='9' style="padding: 0">
+
+                <table class='ordertable' style='table-layout:fixed;display: none;' id="orderinfo_{$row['id']}">
+
+
+
+                    <tr>
+
+                        <td style='width:50px'></td>
+
+
+
+                        <td style='width:110px'>订单商品总额：</td>
+
+                        <td style='width:100px'>{$row['goodsprice']}</td>
+
+
+
+                        <td style='width:110px'>快递金额：</td>
+
+                        <td style='width:100px'>{$row['dispatchprice']}</td>
+
+
+
+                        <td style='width:110px'>订单改价金额</td>
+
+                        <td style='width:100px'>{$row['changeprice']}</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td style='width:50px'></td>
+
+
+
+                        <td style='width:110px'>积分抵扣金额：</td>
+
+                        <td style='width:100px'>{$row['deductprice']}</td>
+
+
+
+                        <td style='width:110px'>余额抵扣金额：</td>
+
+                        <td style='width:100px'>{$row['deductcredit2']}</td>
+
+
+
+                        <td style='width:110px'>会员折扣金额：</td>
+
+                        <td style='width:100px'>{$row['discountprice']}</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td style='width:50px'></td>
+
+
+
+                        <td style='width:100px'>总促销金额：</td>
+
+                        <td style='width:100px'>{$row['isdiscountprice']}</td>
+
+
+
+                        <td style='width:110px'>满减金额：</td>
+
+                        <td style='width:100px'>{$row['deductenough']}</td>
+
+
+
+                        <td style='width:110px'>实际支付金额：</td>
+
+                        <td style='width:100px'>{$row['price']}</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td style='width:50px'></td>
+
+
+
+                        <td style='width:110px'>商户促销金额：</td>
+
+                        <td style='width:100px'>{$row['merchisdiscountprice']}</td>
+
+
+
+                        <td style='width:110px'>商户满减金额：</td>
+
+                        <td style='width:100px'>{$row['merchdeductenough']}</td>
+
+
+
+                        <td style='width:110px'>商户优惠券金额</td>
+
+                        <td style='width:100px'>{$row['merchcouponprice']}</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td style='width:50px'></td>
+
+
+
+                        <td style='width:110px'>分销佣金：</td>
+
+                        <td style='width:100px'>{$row['commission']}</td>
+
+
+
+                        <td style='width:110px'>秒杀优惠：</td>
+
+                        <td style='width:100px'>{$row['seckilldiscountprice']}</td>
+
+
+
+                        <td style='width:110px'></td>
+
+                        <td style='width:100px'></td>
+
+                    </tr>
+
+                </table>
+
+            </td>
+
+        </tr>
+
+        <?php
+            $orderids[] = $row['id'];
+        ?>
+
+
+
+        {/loop}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<style type="text/css">
+    .zhezhao{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 1000;
+        top: 0;
+        opacity: 0.5;
+        display: none;
+    }
+    .zhezhao .cx{
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 25%;
+    }
+</style>
+
+
+<?php $orderids = join(',', $orderids); ?>
+<script>
+    // 修改提现金额为供货价
+    // 百里
+    $("#bonusmoney_pay").text('0');
+    $("#finalprice").val('0');
+    $("body").append('<div class="zhezhao"><div class="cx">数据查询中，请稍后...</div></div>');
+
+    $(function () {
+
+        $(".orderlist td:gt(0)").click(function () {
+
+            var data = $(this).parent(".orderlist").attr('data');
+
+            var id = "orderinfo_" + data;
+
+            $("#"+id).toggle();
+
+        });
+
+        //异步获取成本价
+        //百里
+        var pathinfo_basename = "{php echo end( explode('/', $_SERVER['PHP_SELF']) ) }";
+        var purl = "./"+pathinfo_basename+"?c=site&a=entry&m=ewei_shopv2&do=web&r=order.baili.get_costprice";
+        var orderids = "{$orderids}";
+        var dispatchprice_total = "{php echo $dispatchprice_total; }";
+
+        //隐藏商户端部分金额显示
+        if(pathinfo_basename == 'merchant.php')
+        {
+            $(".merchant_hide").text("");
+            $(".merchant_hide2").hide();
+        }
+
+        $(".zhezhao").show();
+        $.post(purl, {'orderids':orderids}, function(res){
+            if(res.lists)
+            {
+                $.each(res.lists, function(k, v){
+                    $(".baili_key_"+this.orderid).find('.costprice').text(this.costprice);
+
+                    //计算抽成
+                    var dispatchprice = 0;  //邮费
+                    var realpricerate = 0;  //比例
+                    var costprice = this.costprice; //成本
+                    dispatchprice = $(".baili_key_"+this.orderid).find('.realpricerate').data("dispatchprice"); //邮费
+                    realpricerate = $(".baili_key_"+this.orderid).find('.realpricerate').data("realpricerate");
+                    realpricerate /= 100;
+
+                    realpricerate = realpricerate > 0 ? realpricerate : 1;
+
+                    realpricerate = realpricerate * ( dispatchprice * 1 + costprice * 1 );
+                    $(".baili_key_"+this.orderid).find('.realpricerate').text(realpricerate);
+                });
+            }
+
+            // $("#bonusmoney_pay").text(res.total).css({"fontWeight":"bold","fontSize":"30px"});
+            res.total = res.total * 1 + dispatchprice_total * 1;   //打款金额=成本价+邮费
+            $("#bonusmoney_pay").text(res.total);
+            $("#finalprice").val(res.total);
+            $(".zhezhao").hide();
+        }, 'json');
+
+    })
+
+</script>
+
+
+

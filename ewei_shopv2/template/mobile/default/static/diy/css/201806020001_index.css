@@ -1,0 +1,35 @@
+div.fui-icon-group{
+    margin:0 10px;
+}
+/*左右 上下组图控件问题，宽度设置为自动*/
+div.fui-cube{
+    width: auto;
+    margin: 0 10px;
+}
+/*div.default-items{
+    background: -webkit-linear-gradient(#ff204a,#ff2099,#ff20b8,#ff208e,#ff204a) !important;
+    background: -o-linear-gradient(#ff204a,#ff2099,#ff20b8,#ff208e,#ff204a) !important;
+    background: -moz-linear-gradient(#ff204a,#ff2099,#ff20b8,#ff208e,#ff204a) !important;
+    background: linear-gradient(#ff204a,#ff2099,#ff20b8,#ff208e,#ff204a) !important;
+}*/
+div.fui-blank{
+    width: 0px;
+}
+div.fui-goods-group{
+    margin:0 10px;
+}
+div.fui-picture{
+    /*margin: 0 10px;*/
+}
+div.fui-title{
+    margin:0 10px;
+}
+.fui-icon-group .fui-icon-col{
+    padding: 0px;
+}
+.fui-icon-group .fui-icon-col .text{
+    padding-top: 0px;
+}
+div.fui-goods-group:not(.three){
+    margin:auto;
+}

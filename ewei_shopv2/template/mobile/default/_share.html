@@ -1,0 +1,155 @@
+{php $this->shopShare()}
+
+<?php
+    if($_W['shopshare']['title'] == '花蒜')
+    {
+        $_W['shopshare']['title'] = "轻创业首选平台，让成交更简单！一站式购物商城，让生活更划算！优质商品新鲜直供，上花蒜，真划算！";
+    }
+    if(empty($_W['shopshare']['imgUrl']))
+    {
+        $_W['shopshare']['imgUrl'] = "http://img.juhuivip.com/74720c6eb47484b59b4dcb318cd857fd.png";
+    }
+
+    //带上当前会员id
+    $_W['shopshare']['link'] .= '&uuid='.$_W['mid'];
+
+    //查询活动码(当前时间大于活动开始时间，状态为开启状态的最后一条记录)
+    $activity_code = pdo_fetchcolumn("SELECT code FROM ".tablename('ewei_shop_goods_share_code')." WHERE status = 1 ORDER BY id desc LIMIT 1");
+    if($activity_code)
+    {
+        //带上当前活动id
+        $_W['shopshare']['link'] .= '&code='.$activity_code;
+    }
+?>
+
+<script language="javascript">
+
+    // 以下代码用来解决文章详情的分享问题，强制加external
+
+    $(function () {
+
+        var a_collections = $('a');
+
+        $.each(a_collections,function (index,val) {
+
+            var that = $(val);
+
+            var href = that.attr('href') ||'';
+
+            var bool = href.indexOf('r=article');
+
+            if (bool>0){
+
+                that.addClass('external');
+
+            }
+
+        });
+
+    });
+
+    window.shareData = {php echo json_encode($_W['shopshare'])};
+
+    setTimeout(function(){
+
+        $.ajax({
+
+            type: "GET",
+
+            url:'{php echo mobileUrl('index.share_url',array(),true);}',
+
+            data:{url:location.href},
+
+        dataType: "json",
+
+            success: function(data){
+
+            jssdkconfig = data.result || { jsApiList:[] };
+
+            jssdkconfig.debug = false;
+
+            jssdkconfig.jsApiList = ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','showOptionMenu', 'hideMenuItems', 'onMenuShareQZone', 'scanQRCode','openLocation'];
+
+            wx.config(jssdkconfig);
+
+            wx.ready(function () {
+
+                wx.showOptionMenu();
+
+
+
+                {if !empty($_W['shopshare']['hideMenus'])}
+
+                wx.hideMenuItems({
+
+                    menuList: {php echo  json_encode($_W['shopshare']['hideMenus'])}
+
+            });
+
+                {/if}
+
+
+
+                    window.shareData.success = "{$_W['shopshare']['way']}";
+
+                    if(window.shareData.success){
+
+                        var success = window.shareData.success;
+
+                        window.shareData.success = function(){
+
+                            eval(success)
+
+                        };
+
+                    }
+
+                    wx.onMenuShareAppMessage(window.shareData);
+
+                    wx.onMenuShareTimeline(window.shareData);
+
+                    wx.onMenuShareQQ(window.shareData);
+
+                    wx.onMenuShareWeibo(window.shareData);
+
+                    wx.onMenuShareQZone(window.shareData);
+
+                });
+
+        },
+
+        error:function(e){
+
+            console.log(JSON.stringify(e));
+
+        }
+
+    });
+
+    },500);
+
+
+
+    {if !empty($_W['shopset']['wap']['open']) && !is_weixin()}
+
+    //	Share to qq
+
+    require(['//qzonestyle.gtimg.cn/qzone/qzact/common/share/share.js'], function(setShareInfo) {
+
+        setShareInfo({
+
+            title: "{$_W['shopshare']['title']}",
+
+            summary: "{php echo str_replace(array("\r","\n"),'',$_W['shopshare']['desc'])}",
+
+            pic: "{$_W['shopshare']['imgUrl']}",
+
+            url: "{$_W['shopshare']['link']}"
+
+        });
+
+    });
+
+    {/if}
+
+</script> 

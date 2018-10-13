@@ -1,0 +1,341 @@
+{template '_header'}
+
+<style>
+
+
+
+</style>
+
+<div class='fui-page  fui-page-current order-pay-page'>
+
+    <div class="fui-header">
+
+        <div class="fui-header-left">
+
+            <a class="back" onclick='history.back()'></a>
+
+        </div>
+
+        <div class="title" style='margin-right:-2rem;'>收银台</div>
+
+        <div class="fui-header-right">
+
+            <!--<a href="{php echo mobileUrl('order')}" class="external">我的订单</a>-->
+
+        </div>
+
+    </div>
+
+    <div class='fui-content '>
+
+        <div class="fui-cell-group" style="margin-top: 0">
+
+            <div class="fui-cell">
+
+                <div class="fui-cell-label">订单编号</div>
+
+                <div class="fui-cell-info"></div>
+
+                <div class="fui-cell-remark noremark">{$order['ordersn']}</div>
+
+            </div>
+
+            <div class="fui-cell">
+
+                <div class="fui-cell-label">订单金额</div>
+
+                <div class="fui-cell-info"></div>
+
+                <div class="fui-cell-remark noremark"><span class='text-danger bigprice'>￥{if empty($ispeerpay)}{php echo number_format($order['price'],2)}{else}<span id="peerpay">{php echo number_format($peerprice,2)}</span>{/if}</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class='fui-list-group' style="margin-top:10px;">
+
+            {if $order['price'] == 0}
+
+            <!--<div class='fui-list pay-btn' data-type='credit'>-->
+
+                <!--<div class='fui-list-media'>-->
+
+                    <!--<i class='icon icon-money credit'></i>-->
+
+                <!--</div>-->
+
+                <!--<div class='fui-list-inner'>-->
+
+                    <!--<div class="title">确认支付</div>-->
+
+                <!--</div>-->
+
+                <!--<div class='fui-list-angle'>-->
+
+                    <!--<span class="angle"></span>-->
+
+                <!--</div>-->
+
+            <!--</div>-->
+
+            <a id="btn-submit" class="external btn btn-danger block pay-btn"  style="margin-top:1.25rem" data-type='credit'>确认支付</a>
+
+            {else}
+
+            {if $wechat['success'] || (is_h5app() &&$payinfo['wechat'])}
+
+            <div class='fui-list pay-btn' data-type='wechat' {if is_h5app()&&is_ios()}style="display: none;" id="threeWX"{/if}>
+
+            <div class='fui-list-media'>
+
+                <!--<i class='icon icon-wechat wechat'></i>-->
+
+                <img src="{EWEI_SHOPV2_STATIC}images/wx.png" alt="">
+
+            </div>
+
+            <div class='fui-list-inner'>
+
+                <div class="title">
+
+                    微信支付
+
+                </div>
+
+                <div class="subtitle c999 f24">
+
+                    <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">微信安全支付
+
+                </div>
+
+            </div>
+
+            <div class='fui-list-angle'><span class="angle"></span></div>
+
+        </div>
+
+            {/if}
+
+
+
+            {if ($alipay['success'] && !is_h5app()) || (is_h5app() &&$payinfo['alipay']) && empty($ispeerpay)}
+
+            <div class='fui-list pay-btn' data-type='alipay'>
+
+                <div class='fui-list-media'>
+
+                    <!--<i class='icon icon-alipay alipay'></i>-->
+
+                    <img src="{EWEI_SHOPV2_STATIC}images/zfb.png" alt="">
+
+
+
+                </div>
+
+                <div class='fui-list-inner'>
+
+                    <div class="title">
+
+                        支付宝支付
+
+                    </div>
+
+                    <div class="subtitle c999 f24">
+
+                        <img src="{EWEI_SHOPV2_STATIC}images/safe.png" alt="" style="height: .8rem;vertical-align: text-bottom">支付宝安全支付
+
+                    </div>
+
+                </div>
+
+                <div class='fui-list-angle'><span class="angle"></span></div>
+
+            </div>
+
+            {/if}
+
+
+
+
+
+        {if $credit['success']}
+
+            <div class='fui-list pay-btn' data-type='credit'>
+
+                <div class='fui-list-media'>
+
+                    <!--<i class='icon icon-money credit'></i>-->
+
+                    <img src="{EWEI_SHOPV2_STATIC}images/ye.png" alt="">
+
+                </div>
+
+                <div class='fui-list-inner'>
+
+                    <div class="title">{$_W['shopset']['trade']['moneytext']}支付</div>
+
+                    <div class="subtitle c999 f24">当前{$_W['shopset']['trade']['moneytext']}: <span class='text-danger'>￥{php echo number_format($member['credit2'],2)}</span>
+
+                    </div>
+
+                </div>
+
+                <div class='fui-list-angle'>
+
+		    <span class="angle">
+
+
+
+		    </span>
+
+                </div>
+
+            </div>
+
+            {/if}
+
+            {if $cash['success'] && empty($ispeerpay)&&!$haveverifygood}
+
+            <div class='fui-list pay-btn' data-type='cash'>
+
+                <div class='fui-list-media'>
+
+                    <!--<i class='icon icon-deliver1 cash'></i>-->
+
+                    <img src="{EWEI_SHOPV2_STATIC}images/hdfk.png" alt="">
+
+
+
+                </div>
+
+                <div class='fui-list-inner'>
+
+                    <div class="title">货到付款</div>
+
+                    <div class="subtitle c999 f24">收到商品后进行付款</div>
+
+                </div>
+
+                <div class='fui-list-angle'><span class="angle"></span></div>
+
+            </div>
+
+            {/if}
+
+
+
+            {if !empty($peerPaySwi)}
+
+            <div class='fui-list pay-btn' data-type='peerpay'>
+
+                <div class='fui-list-media'>
+
+                    <!--<i class='icon icon-natice peerpay' style="background: #ff9326;color: #fff"></i>-->
+
+                    <img src="{EWEI_SHOPV2_STATIC}images/zrdf.png" alt="">
+
+                </div>
+
+                <div class='fui-list-inner'>
+
+                    <div class="title">微信找人代付</div>
+
+                    <div class="subtitle c999 f24">帮你付款的才是真爱</div>
+
+                </div>
+
+                <div class='fui-list-angle'><span class="angle"></span></div>
+
+            </div>
+
+            {/if}
+
+            {/if}
+
+        </div>
+
+    </div>
+
+    {template 'order/pay/wechat_jie'}
+
+    <script language='javascript'>require(['biz/order/pay'], function (modal) {
+
+        modal.init({php echo json_encode($payinfo)});
+
+    });</script>
+
+</div>
+
+<input type="hidden" value="{$peerpayMessage}" id="peerpaymessage">
+
+
+<!-- 检测淘客助手是否下架 开始 -->
+<script type="text/template" id="baili-loading-tmp">
+<div class='infinite-loading baili-infinite-loading' style="text-align: center; color: #666;height:5rem; line-height:5rem;">
+
+    <span class='fui-preloader'></span>
+
+    <span class='text'> 正在获取支付信息...</span>
+
+</div>
+</script>
+<script type="text/template" id="baili-goods-down-tmp">
+<div style="text-align: center; color: #666;text-align:left;padding:2rem">
+
+    <p>部分商品信息不存在，可能原因:</p>
+    <p style="padding-left: 1rem;margin: 5px 0px;">1、该商品已下架。</p>
+    <p style="padding-left: 1rem;margin: 5px 0px;">2、优惠券已被领完。</p>
+    <p style="padding-left: 1rem;margin: 5px 0px;">3、限时商品</p>
+    <p style="padding-left: 1rem;margin: 5px 0px;">4、<a href="./index.php?i=2&c=entry&m=ewei_shopv2&do=mobile">重新下单</a></p>
+</div>
+</script>
+<script type="text/javascript">
+    //隐藏支付DOM
+    $(".fui-content .fui-list-group").hide();
+
+    //显示加载;
+    $('.fui-cell-group').after( $("#baili-loading-tmp").html() );
+
+    //查询商品信息
+    var taokezhushou_detail_purl = "{$_W['site']['url']}/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=order.baili.taokezhushou_detail";
+    var cancel_purl = "{$_W['site']['url']}/app/index.php?i=2&c=entry&m=ewei_shopv2&do=mobile&r=order.op.cancel";
+    var orderid = {$payinfo['orderid']};
+    $.post(taokezhushou_detail_purl, {'orderid':orderid}, function(res){
+        //隐藏加载
+        $(".baili-infinite-loading").remove();
+
+        if(res.status == 0)
+        {
+            //部分商品已下架，请重新下单
+            $(".fui-cell-group").hide().after( $("#baili-goods-down-tmp").html() );
+
+            //取消订单
+            $.post(cancel_purl, {'id':orderid, 'remark':'系统自动取消：商品下架'}, function(res){});
+        }
+        else
+        {
+            //显示支付DOM
+            $(".fui-content .fui-list-group").show();
+        }
+
+    }, 'json');
+
+</script>
+<!-- 检测淘客助手是否下架 结束 -->
+
+
+{if is_ios()}
+
+    {php $initWX=true}
+
+{/if}
+
+{template '_footer'}
+
+<!--4000097827-->

@@ -1,0 +1,790 @@
+{template '_header'}
+<?php
+    //查询分销等级返佣
+    $sql = "SELECT MAX(commission1) as commission1, MAX(commission2) as commission2 FROM ".tablename('ewei_shop_commission_level');
+    $commission_max = pdo_fetch($sql);
+ ?>
+<style>
+    tbody tr td{
+        position: relative;
+    }
+    tbody tr  .icow-weibiaoti--{
+        visibility: hidden;
+        display: inline-block;
+        color: #fff;
+        height:18px;
+        width:18px;
+        background: #e0e0e0;
+        text-align: center;
+        line-height: 18px;
+        vertical-align: middle;
+    }
+    tbody tr:hover .icow-weibiaoti--{
+        visibility: visible;
+    }
+    tbody tr  .icow-weibiaoti--.hidden{
+        visibility: hidden !important;
+    }
+    .full .icow-weibiaoti--{
+        margin-left:10px;
+    }
+    .full>span{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        vertical-align: middle;
+        align-items: center;
+    }
+    tbody tr .label{
+        margin: 5px 0;
+    }
+    .goods_attribute a{
+        cursor: pointer;
+    }
+    .newgoodsflag{
+        width: 22px;height: 16px;
+        background-color: #ff0000;
+        color: #fff;
+        text-align: center;
+        position: absolute;
+        bottom: 70px;
+        left: 57px;
+        font-size: 12px;
+    }
+</style>
+<div class="page-header">
+    当前位置：<span class="text-primary">商品管理</span>
+</div>
+<div class="page-content">
+    <div class="fixed-header">
+        <!-- <div style="width:25px;"></div> -->
+        <div style="width:65px;text-align:center;">排序</div>
+        <div style="width:70px;text-align:center;">商品ID</div>
+        <div style="width:80px;">商品</div>
+        <div  style="width:260px;">&nbsp;</div>
+        <div style="width: 80px;">价格</div>
+        <div style="width: 70px;">成本价</div>
+        <div style="width: 80px;">库存</div>
+        <div style="width: 80px;">销量</div>
+        <div style="width: 100px;">出售数</div>
+        {if $goodsfrom!='cycle'}
+        <div  style="width:80px;" >状态</div>
+        {/if}
+        <div class="flex1">属性</div>
+        <div style="width: 105px;">操作</div>
+    </div>
+    <form action="../index.php" method="get" class="form-horizontal form-search" role="form">
+        <input type="hidden" name="c" value="site" />
+        <input type="hidden" name="a" value="entry" />
+        <input type="hidden" name="m" value="ewei_shopv2" />
+        <input type="hidden" name="do" value="web" />
+        <input type="hidden" name="r"  value="goods.{$goodsfrom}" />
+        <div class="page-toolbar">
+            <span class="pull-left" style="margin-right:30px;">
+                {ifp 'goods.add'}
+                <a class='btn btn-sm btn-primary' href="{php echo webUrl('goods/add')}"><i class='fa fa-plus'></i> 添加商品</a>
+                {/if}
+                {ifp 'goods.add'}
+                <a class='btn btn-sm btn-primary' href="{php echo webUrl('goods/create')}"><i class='fa fa-plus'></i> 快速添加商品</a>
+                {/if}
+
+                {if p('taobao')}
+                    {ifp 'taobao'}
+                        <a class='btn btn-sm btn-primary' href="{php echo webUrl('taobao')}"><i class='fa fa-plus'></i> 导入商品</a>
+                    {/if}
+                {/if}
+
+                <a class='btn btn-sm btn-primary' href="{php echo webUrl('taobao/weini')}"><i class='fa fa-plus'></i> 唯妮供应链</a>
+            </span>
+            <span class="pull-left" style="margin-right:30px;margin-left:30px;">
+                {if $_GPC['r'] == 'goods.stock'}
+                <a class='btn btn-sm' href="###" style="corsor:default;background:#999;border-color:#999">
+                    <i class='fa fa-plus'></i> 默认排序
+                </a>
+                <a class='btn btn-sm btn-primary' href="{php echo webUrl('goods/index_huasuan/stock')}"><i class='fa fa-plus'></i> 最新排序</a>
+                {/if}
+                {if $_GPC['r'] == 'goods.index_huasuan.stock'}
+                <a class='btn btn-sm btn-primary' href="{php echo webUrl('goods/stock')}"><i class='fa fa-plus'></i> 默认排序</a>
+                <a class='btn btn-sm' href="###" style="corsor:default;background:#999;border-color:#999">
+                    <i class='fa fa-plus'></i> 最新排序
+                </a>
+                {/if}
+            </span>
+            <div class="input-group col-sm-6 pull-right">
+                <span class="input-group-select">
+                    <select name="cate" class='form-control select2' style="width:200px;" data-placeholder="商品分类">
+                        <option value="" {if empty($_GPC['cate'])}selected{/if} >商品分类</option>
+                            {loop $category $c}
+                        <option value="{$c['id']}" {if $_GPC['cate']==$c['id']}selected{/if} >{$c['name']}</option>
+                            {/loop}
+                    </select>
+                </span>
+                <input type="text" class="input-sm form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="ID/名称/编号/条码{if $merch_plugin}/商户名称{/if}">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"> 搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+    {if count($list)>0 && cv('goods.main')}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-table-header">
+                <input type='checkbox' />
+                <div class="btn-group">
+                    {ifp 'goods.edit'}
+                        {if $_GPC['goodsfrom']=='sale'}
+                        <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch'  data-href="{php echo webUrl('goods/status',array('status'=>0))}">
+                            <i class='icow icow-xiajia3'></i> 下架
+                        </button>
+                        {/if}
+                        {if $_GPC['goodsfrom']=='stock'}
+                            <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('goods/status',array('status'=>1))}">
+                                <i class='icow icow-shangjia2'></i> 上架
+                            </button>
+                        {/if}
+                    {/if}
+                    {if $_GPC['goodsfrom']=='cycle'}
+                        {ifp 'goods.delete1'}
+                            <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="如果商品存在购买记录，会无法关联到商品, 确认要彻底删除吗?" data-href="{php echo webUrl('goods/delete1')}">
+                            <i class='icow icow-shanchu1'></i> 彻底删除</button>
+                        {/if}
+                        {ifp 'goods.restore'}
+                            <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要恢复?" data-href="{php echo webUrl('goods/restore')}">
+                            <i class='icow icow-huifu1'></i> 恢复到仓库</button>
+                        {/if}
+                    {else}
+                        {ifp 'goods.delete'}
+                        <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要删除吗?" data-href="{php echo webUrl('goods/delete')}">
+                            <i class='icow icow-shanchu1'></i> 删除</button>
+                        {/if}
+                    {/if}
+
+                    {if $_GPC['goodsfrom']=='verify'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="确定要通过审核吗?" data-href="{php echo webUrl('goods/checked')}">
+                        <i class='icow icow-shenhetongguo'></i> 批量审核通过</button>
+                    {/if}
+
+                    {ifp 'goods.edit'}
+                        <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-group'  id="batchcatesbut" >批量分类</button>
+                    {/if}
+                </div>
+            </div>
+    <table class="table table-responsive">
+        <thead class="navbar-inner">
+            <tr>
+                <th style="width:25px;"></th>
+                <th style="width:40px;text-align:center;">排序</th>
+                <th style="width:70px;text-align:center;">商品ID</th>
+                <th style="width:80px;">商品</th>
+                <th style="width:260px;">&nbsp;</th>
+                <th style="width: 80px;">价格</th>
+                <th style="width: 70px;" >成本价</th>
+                <!-- <th style="width: 70px;" >佣金</th>
+                <th style="width: 70px;" >毛利润</th>
+                <th style="width: 70px;" >毛利率</th> -->
+                <th style="width: 80px;">库存</th>
+                <th style="width: 80px;">销量</th>
+                <th style="width: 100px;">出售数</th>
+                {if $goodsfrom!='cycle'}
+                <th  style="width:80px;" >状态</th>
+                {/if}
+                <th style="width:100%">属性</th>
+                <th style="width: 105px;">操作</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {loop $list $item}
+            <tr>
+                <td>
+                    <input type='checkbox'  value="{$item['id']}"/>
+                </td>
+                <td style='text-align:center;'>
+                    {ifp 'goods.edit'}
+                    <a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('goods/change',array('type'=>'displayorder','id'=>$item['id']))}" >{$item['displayorder']}</a>
+                    <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                    {else}
+                    {$item['displayorder']}
+                    {/if}
+                </td>
+                <td>
+                   &nbsp; {$item['id']}</br>
+<a href="javascript:;" class='btn  btn-op btn-operation js-clip' data-url="{$item['id']}">
+                                 <span data-toggle="tooltip" data-placement="top"  data-original-title="复制ID">
+                                       <i >复制ID</i>
+                            </span>
+                            </a>
+                </td>
+                <td>
+                    <a href="{php echo webUrl('goods/edit', array('id' => $item['id'],'goodsfrom'=>$goodsfrom,'page'=>$page))}">
+                        <img src="{php echo tomedia($item['thumb'])}" style="width:72px;height:72px;padding:1px;border:1px solid #efefef;margin: 7px 0" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'" />
+                    </a>
+                    {if !empty($item['newgoods'])}
+                    <!--新-->
+                    <div class="newgoodsflag">新</div>
+                    {/if}
+
+                </td>
+                <td class='full' >
+                        <span>
+                            <span style="display: block;width: 100%;">
+                            {ifp 'goods.edit'}
+                                <a href='javascript:;' data-toggle='ajaxEdit' data-edit='textarea'  data-href="{php echo webUrl('goods/change',array('type'=>'title','id'=>$item['id']))}" style="overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">
+                                    {$item['title']}
+                                </a>
+                            {else}
+                                  {$item['title']}
+                            {/if}
+                                {if !empty($category[$item['pcate']])}
+                                    <span class="text-danger">[{$category[$item['pcate']]['name']}]</span>
+                                {/if}
+                                {if !empty($category[$item['ccate']])}
+                                    <span class="text-info">[{$category[$item['ccate']]['name']}]</span>
+                                {/if}
+                                {if !empty($category[$item['tcate']]) && intval($shopset['catlevel'])==3}
+                                    <span class="text-info">[{$category[$item['tcate']]['name']}]</span>
+                                {/if}
+                        </span>
+                        {ifp 'goods.edit'}
+                             <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                        {/if}
+                        </span>
+                        <a href="{php echo mobileUrl('goods/detail', array('id' => $item['id']),true)}" target="_blank" class='btn btn-sm btn-primary'>预览
+                        </a>
+                        {if $item['goodssn'] != '' && $item['catch_source'] == 'taokezhushou'}
+                            <a href="https://detail.tmall.com/item.htm?id={$item['goodssn']}" target="_blank" class='btn btn-sm' style="background: #FF0036;border-color: #FF0036;color:#fff">
+                            天猫
+                            </a>
+                        {/if}
+                </td>
+
+                <td>&yen;
+                    {if $item['hasoption']==1}
+                    {ifp 'goods.edit'}
+                     <span data-toggle='tooltip' title='多规格不支持快速修改'>{$item['marketprice']}</span>
+                    {else}
+                     {$item['marketprice']}
+                    {/if}
+                    {else}
+                    {ifp 'goods.edit'}
+
+                    <a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('goods/change',array('type'=>'marketprice','id'=>$item['id']))}" >{$item['marketprice']}</a>
+                    <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                    {else}
+                    {$item['marketprice']}
+                    {/if}{/if}
+
+                </td>
+                <td class="text-danger">
+                {if $item['hasoption']==1}
+                    {ifp 'goods.edit'}
+                     <span data-toggle='tooltip' title='多规格不支持快速修改'>{$item['costprice']}</span>
+                    {else}
+                     {$item['costprice']}
+                    {/if}
+                {else}
+                    {ifp 'goods.edit'}
+
+                    <a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('goods/index_huasuan/change',array('type'=>'costprice','id'=>$item['id']))}" >{$item['costprice']}</a>
+                    <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                    {else}
+                    {$item['costprice']}
+                    {/if}
+                {/if}
+
+                </td>
+
+                <td>
+                    {if !empty($item['hoteldaystock'])}
+                        <span data-toggle='tooltip' title='民宿类商品显示每日库存'>{$item['hoteldaystock']}/日</span>
+                    {else if $item['hasoption']==1}
+                        {ifp 'goods.edit'}
+                            <span data-toggle='tooltip' title='多规格不支持快速修改'>
+                                {if $item['total']<=$goodstotal}<span class="text-danger">{$item['total']}</span>{else}{$item['total']}{/if}
+                            </span>
+                        {else}
+                            {if $item['total']<=$goodstotal}<span class="text-danger">{$item['total']}</span>{else}{$item['total']}{/if}
+                        {/if}
+                    {else}
+                        {ifp 'goods.edit'}
+                            <a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('goods/change',array('type'=>'total','id'=>$item['id']))}" >
+                                {if $item['total']<=$goodstotal}<span class="text-danger">{$item['total']}</span>{else}{$item['total']}{/if}
+                            </a>
+                            <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                        {else}
+                            {if $item['total']<=$goodstotal}<span class="text-danger">{$item['total']}</span>{else}{$item['total']}{/if}
+                        {/if}
+                    {/if}
+                </td>
+
+                <td>
+                {$item['salesreal']}
+                </td>
+
+                <td>
+                {if $item['hasoption']==1}
+                    {ifp 'goods.edit'}
+                     <span data-toggle='tooltip' title='多规格不支持快速修改'>{$item['sales']}</span>
+                    {else}
+                     {$item['sales']}
+                    {/if}
+                {else}
+                    {ifp 'goods.edit'}
+
+                    <a href='javascript:;' data-toggle='ajaxEdit' data-href="{php echo webUrl('goods/index_huasuan/change',array('type'=>'sales','id'=>$item['id']))}" >{$item['sales']}</a>
+                    <i class="icow icow-weibiaoti-- " data-toggle="ajaxEdit2"></i>
+                    {else}
+                    {$item['sales']}
+                    {/if}
+                {/if}
+                </td>
+
+                {if $goodsfrom!='cycle'}
+                <td  style="overflow:visible;">
+                    {if $item['status']==2}
+                    <span class="label label-danger">赠品</span>
+                    {else}
+                    <span class='label {if $item['status']==1}label-primary{else}label-default{/if}'
+                          {ifp 'goods.edit'}
+                          data-toggle='ajaxSwitch'
+                          data-confirm = "确认是{if $item['status']==1}下架{else}上架{/if}？"
+                          data-switch-refresh='true'
+                          data-switch-value='{$item['status']}'
+                          data-switch-value0='0|下架|label label-default|{php echo webUrl('goods/status',array('status'=>1,'id'=>$item['id']))}'
+                          data-switch-value1='1|上架|label label-success|{php echo webUrl('goods/status',array('status'=>0,'id'=>$item['id']))}'
+                          {/if}
+                          >
+                          {if $item['status']==1}上架{else}下架{/if}</span>
+                    {/if}
+                    {if !empty($item['merchid'])}
+                    <br>
+                    <span class='label {if $item['checked']==0}label-primary{else}label-warning{/if}'
+                    {ifp 'goods.edit'}
+                    data-toggle='ajaxSwitch'
+                    data-confirm = "确认是{if $item['checked']==0}审核中{else}审核通过{/if}？"
+                    data-switch-refresh='true'
+                    data-switch-value='{$item['checked']}'
+                    data-switch-value1='1|审核中|label label-warning|{php echo webUrl('goods/checked',array('checked'=>0,'id'=>$item['id']))}'
+                    data-switch-value0='0|通过|label label-success|{php echo webUrl('goods/checked',array('checked'=>1,'id'=>$item['id']))}'
+                    {/if}
+                    >
+                    {if $item['checked']==0}通过{else}审核中{/if}</span>
+                    {/if}
+
+                    </td>
+                    {/if}
+                    <td  class="goods_attribute">
+                        <a class='{if $item['isnew']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['isnew']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'new', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'new','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >新品</a>
+                        <a class='{if $item['ishot']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['ishot']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'hot', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'hot','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >热卖</a>
+                        <a class='{if $item['isrecommand']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['isrecommand']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'recommand', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'recommand','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >推荐</a>
+                        <a class='{if $item['isdiscount']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['isdiscount']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'discount', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'discount','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >促销</a>
+                        <a class='{if $item['issendfree']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['issendfree']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'sendfree', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'sendfree','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >包邮</a>
+                        <a class='{if $item['istime']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['istime']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'time', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'time','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >限时卖</a>
+                        <a class='{if $item['isnodiscount']==1}text-danger{else}text-default{/if}'
+                        {ifp 'goods.property'}
+                        data-toggle='ajaxSwitch'
+                        data-switch-value='{$item['isnodiscount']}'
+                        data-switch-value0='0||text-default|{php echo webUrl('goods/property',array('type'=>'nodiscount', 'data'=>1,'id'=>$item['id']))}'
+                        data-switch-value1='1||text-danger|{php echo webUrl('goods/property',array('type'=>'nodiscount','data'=>0,'id'=>$item['id']))}'
+                        {/if}
+                        >不参与折扣</a>
+                        <br>
+                         <br>
+                         <P style='background:#fdeeee;color:#999;'>
+                          运营人员注意：当预估毛利润低于5%时，请谨慎设<br> 置相关促销（含折扣，优惠券，分销比例）
+                        </P>
+                    </td>
+                    <td  style="overflow:visible;position:relative">
+                            {if empty($item['ishotel'])}
+                                {ifp 'goods.edit|goods.view'}
+                                    <a  class='btn btn-op btn-operation' href="{php echo webUrl('goods/edit', array('id' => $item['id'],'goodsfrom'=>$goodsfrom,'page'=>$page))}" >
+                                         <span data-toggle="tooltip" data-placement="top" title="" data-original-title="{ifp 'goods.edit'}编辑{else}查看{/if}">
+                                            <i class="icow icow-bianji2"></i>
+                                         </span>
+                                    </a>
+                                {/if}
+                            {else}
+                                {ifp 'hotelreservation.goods.edit|hotelreservation.goods.view'}
+                                <a  class='btn  btn-op btn-operation' href="{php echo webUrl('hotelreservation/goods/edit', array('id' => $item['id'],'goodsfrom'=>$goodsfrom,'page'=>$page))}">
+                                   <span data-toggle="tooltip" data-placement="top" title="" data-original-title="{ifp 'goods.edit'}编辑{else}查看{/if}">
+                                       {ifp 'goods.edit'}
+                                        <i class='icow icow-bianji2'></i>
+                                       {else}
+                                        <i class='icow icow-chakan-copy'></i>
+                                        {/if}
+                                   </span>
+                                </a>
+                                {/if}
+                            {/if}
+                            {if $_GPC['goodsfrom']=='cycle'}
+                                {ifp 'goods.restore'}
+                                <a  class='btn  btn-op btn-operation' data-toggle='ajaxRemove' href="{php echo webUrl('goods/restore', array('id' => $item['id']))}" data-confirm='确认要恢复?'>
+                                     <span data-toggle="tooltip" data-placement="top" title="" data-original-title="恢复">
+                                            <i class='icow icow-huifu1'></i>
+                                </span>
+                                </a>
+                                {/if}
+                                {ifp 'goods.delete1'}
+                                <a  class='btn  btn-op btn-operation' data-toggle='ajaxRemove' href="{php echo webUrl('goods/delete1', array('id' => $item['id']))}" data-confirm='如果此商品存在购买记录，会无法关联到商品, 确认要彻底删除吗?？'>
+                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="彻底删除">
+                                            <i class='icow icow-shanchu1'></i>
+                                </span>
+                                </a>
+                                {/if}
+                            {else}
+                            {ifp 'goods.delete'}
+                            <a  class='btn  btn-op btn-operation' data-toggle='ajaxRemove' href="{php echo webUrl('goods/delete', array('id' => $item['id']))}" data-confirm='确认彻底删除此商品？'>
+                                <span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除">
+                                     <i class='icow icow-shanchu1'></i>
+                                </span>
+                            </a>
+                            {/if}
+                            {/if}
+                            {if $_GPC['goodsfrom']!='cycle'}
+                            <a href="javascript:;" class='btn  btn-op btn-operation js-clip' data-url="{php echo mobileUrl('goods/detail', array('id' => $item['id']),true)}">
+                                 <span data-toggle="tooltip" data-placement="top"  data-original-title="复制链接">
+                                       <i class='icow icow-lianjie2'></i>
+                            </span>
+                            </a>
+                            <a href="javascript:void(0);" class="btn  btn-op btn-operation" data-toggle="popover" data-trigger="hover" data-html="true"
+                               data-content="<img src='{$item['qrcode']}' width='130' alt='链接二维码'>" data-placement="auto right">
+                                <i class="icow icow-erweima3"></i>
+                            </a>
+
+                            {/if}
+
+</td>
+                    </tr>
+                    <tr style="background: #f9f9f9">
+                        <td colspan="{if $goodsfrom=='cycle'}4{else}6{/if}" style='text-align: left;border-top:none;padding:5px 0;' class='aops'>
+                            {if !empty($item['merchname']) && $item['merchid'] > 0}
+                                <span class="text-default" style="margin-left: 10px;">供应商名称：</span>
+                                <span class="text-info">{$item['merchname']}</span>
+                            {else}
+                                <span style="color:#ff204a;border: 1px #ff204a solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">自营</span>
+                            {/if}
+
+                            {if $item['catch_source'] == 'taokezhushou'}
+                            <span style="color:#ff204a;border: 1px #ff204a solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                            <a href="http://www.taokezhushou.com/detail/{$item['goodssn']}" style="color:#ff204a;" target="_blank">淘客助手</a>
+                            </span>
+                            {/if}
+
+                            {if $item['catch_source'] == 'weini'}
+                            <span style="color:#ff204a;border: 1px #ff204a solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                            <a href="http://seller.weinib2b.com/web/member/goods/detail.html?_gn={$item['goodssn']}&_sku={$item['goodssn']}" style="color:#ff204a;" target="_blank">唯妮</a>
+                            </span>
+                                <?php
+                                    $delivery_code = '';
+                                    switch ($item['delivery_code']) {
+                                        case '1':
+                                            $delivery_code = '保税区发货';
+                                            break;
+                                        case '2':
+                                            $delivery_code = '香港直邮';
+                                            break;
+                                        case '3':
+                                            $delivery_code = '';
+                                            break;
+                                        case '4':
+                                            $delivery_code = '海外直邮';
+                                            break;
+                                        case '5':
+                                            $delivery_code = '国内发货';
+                                            break;
+                                    }
+                                ?>
+                                {if $item['delivery_city'] != ''}
+                                <span style="color:#44abf7;border: 1px #44abf7 solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                                    发货地:{$item['delivery_city']}
+                                </span>
+                                {/if}
+                                {if $delivery_code != ''}
+                                <span style="color:#44abf7;border: 1px #44abf7 solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                                    {$delivery_code}
+                                </span>
+                                {/if}
+                                {if $item['rate'] > 0}
+                                    <span style="color:#44abf7;border: 1px #44abf7 solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                                        税率:{$item['rate']}
+                                    </span>
+                                {/if}
+
+                                {if $item['sale_type'] == 1}
+                                    <span style="color:#1cab41;border: 1px #1cab41 solid;padding: 1px 5px;border-radius: 2px;margin-left:10px;">
+                                        包邮包税
+                                    </span>
+                                {/if}
+                            {/if}
+                        </td>
+                        <td colspan="7" style="border-top:none;padding:5px 8px;text-align:right;">
+                            <?php
+                                // 销售价
+                                $x = $item['marketprice'];
+                                // 成本价
+                                $y = $item['costprice'];
+
+                                //一级毛利润
+                                $maolirun1 = sprintf("%.2f", $x - $y - $item['commission1_pay']);
+                                //二级毛利润
+                                $maolirun2 = sprintf("%.2f", $x - $y - $item['commission2_pay']);
+
+                                //一级毛利润率
+                                // $maolirunlv1 = $y == 0 ? '100%' : sprintf("%.2f", ($x - $y - $item['commission1_pay']) / $x * 100) . "%";
+                                $maolirunlv1 = $y == 0 ? '100%' : sprintf("%.2f", ($x - $y) / $x * 100) . "%";
+                                //二级毛利润率
+                                // $maolirunlv2 =  $y == 0 ? '100%' : sprintf("%.2f", ($x - $y - $item['commission2_pay']) / $x * 100) . "%";
+                                $maolirunlv2 =  $y == 0 ? '100%' : sprintf("%.2f", ($x - $y) / $x * 100) . "%";
+
+                                //优先百分比
+                                if($item['commission1_rate'] > 0 && $item['commission2_rate'] > 0)
+                                {
+                                    $commission1 = sprintf("%.2f", $item['marketprice'] * $item['commission1_rate'] / 100);
+                                    $commission2 = sprintf("%.2f", $item['marketprice'] * $item['commission2_rate'] / 100);
+                                }
+                                else
+                                {
+                                    $commission1 = $item['commission1_pay'];
+                                    $commission2 = $item['commission2_pay'];
+                                }
+
+                                //如果没有启用独立佣金，但是参与了分销的商品，读取系统默认佣金
+                                if($item['hascommission'] == 0 && $item['nocommission'] == 0)
+                                {
+                                    $commission1 = $commission_max['commission1'] * $x / 100;
+                                    $commission2 = $commission_max['commission2'] * $x / 100;
+                                }
+
+                                //最大佣金
+                                $yongjin_max = $commission1 + $commission2; //$item['commission1_pay']+$item['commission2_pay'];
+                                //最大毛利润
+                                $maolirun_max = sprintf("%.2f", $x - $y - $yongjin_max);
+                                //最大毛利率
+                                $maolirunlv_max = $y == 0 ? '100%' : sprintf("%.2f", ($x - $y) / $x * 100) . "%";
+                                //最大毛利率2
+                                // 0.4%团队佣金 + 0.06%微信提现手续费
+                                $maolirunlv_max2 = $y == 0 ? '100%' : sprintf("%.2f", ($x - $y - $yongjin_max - ($x * 0.046)) / $x * 100) . "%";
+                            ?>
+                            <span style="margin-right:5px;">
+                                一级佣金：{$commission1}
+                                &nbsp;&nbsp;
+                                二级佣金：{$commission2}
+                            </span>
+                            /
+                            <span style="margin-left:5px;">
+                                佣金总和：<span style="color:#eb6060">{$yongjin_max}</span>
+                                &nbsp;&nbsp;
+                                毛利润：<span style="color:#eb6060">{$maolirun_max}</span>
+                                &nbsp;&nbsp;
+                                毛利率1：<span style="color:#eb6060">{$maolirunlv_max}</span>
+                                &nbsp;&nbsp;
+                                毛利率2：<span style="color:#eb6060">{$maolirunlv_max2}</span>
+                            </span>
+                        </td>
+                    </tr>
+            {/loop}
+       </tbody>
+        <tfoot>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td    {if $goodsfrom!='cycle'}colspan="9"{else}colspan="4" {/if}>
+                <div class="btn-group">
+                    {ifp 'goods.edit'}
+                    {if $_GPC['goodsfrom']=='sale'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch'  data-href="{php echo webUrl('goods/status',array('status'=>0))}">
+                        <i class='icow icow-xiajia3'></i> 下架</button>
+                    {/if}
+                    {if $_GPC['goodsfrom']=='stock'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch' data-href="{php echo webUrl('goods/status',array('status'=>1))}">
+                        <i class='icow icow-shangjia2'></i> 上架</button>
+                    {/if}
+                    {/if}
+
+                    {if $_GPC['goodsfrom']=='cycle'}
+                    {ifp 'goods.delete1'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="如果商品存在购买记录，会无法关联到商品, 确认要彻底删除吗?" data-href="{php echo webUrl('goods/delete1')}">
+                        <i class='icow icow-shanchu1'></i> 彻底删除</button>
+                    {/if}
+
+                    {ifp 'goods.restore'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要恢复?" data-href="{php echo webUrl('goods/restore')}">
+                        <i class='icow icow-huifu1'></i> 恢复到仓库</button>
+                    {/if}
+
+                    {else}
+                    {ifp 'goods.delete'}
+                    <button class="btn btn-default btn-sm  btn-operation" type="button" data-toggle='batch-remove' data-confirm="确认要彻底删除吗?" data-href="{php echo webUrl('goods/delete1')}">
+                        <i class='icow icow-shanchu1'></i> 彻底删除</button>
+                    {/if}
+                    {/if}
+                </div>
+            </td>
+            <td {if $goodsfrom!='cycle'}colspan="5"{else}colspan="9" {/if} style="text-align: right">
+                {$pager}
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    </div>
+</div>
+  {else}
+    <div class="panel panel-default">
+        <div class="panel-body empty-data">暂时没有任何商品!</div>
+    </div>
+  {/if}
+</div>
+{template 'goods/batchcates'}
+{template '_footer'}
+<script>
+    //显示批量分类
+    $('#batchcatesbut').click(function () {
+        $('#batchcates').show();
+    })
+
+    //关闭批量分类
+    $('.modal-header .close').click(function () {
+        $('#batchcates').hide();
+    })
+
+    // 取消批量分类
+    $('.modal-footer .btn.btn-default').click(function () {
+        $('#batchcates').hide();
+    })
+
+
+    //确认
+    $('.modal-footer .btn.btn-primary').click(function () {
+        var selected_checkboxs = $('.table-responsive tbody tr td:first-child [type="checkbox"]:checked');
+        var goodsids = selected_checkboxs.map(function () {
+            return $(this).val()
+        }).get();
+
+        var cates=$('#cates').val();
+        var iscover=$('input[name="iscover"]:checked').val();
+        $.post(biz.url('goods/ajax_batchcates'),{'goodsids':goodsids,'cates': cates,'iscover':iscover}, function (ret) {
+            if (ret.status == 1) {
+                $('#batchcates').hide();
+                tip.msgbox.suc('修改成功');
+                window.location.reload();
+                return
+            } else {
+                tip.msgbox.err('修改失败');
+            }
+        }, 'json');
+    })
+
+    $(document).on("click", '[data-toggle="ajaxEdit2"]',
+            function (e) {
+                var _this = $(this)
+                $(this).addClass('hidden')
+                var obj = $(this).parent().find('a'),
+                        url = obj.data('href') || obj.attr('href'),
+                        data = obj.data('set') || {},
+                        html = $.trim(obj.text()),
+                        required = obj.data('required') || true,
+                        edit = obj.data('edit') || 'input';
+                var oldval = $.trim($(this).text());
+                e.preventDefault();
+
+                submit = function () {
+                    e.preventDefault();
+                    var val = $.trim(input.val());
+                    if (required) {
+                        if (val == '') {
+                            tip.msgbox.err(tip.lang.empty);
+                            return;
+                        }
+                    }
+                    if (val == html) {
+                        input.remove(), obj.html(val).show();
+                        //obj.closest('tr').find('.icow').css({visibility:'visible'})
+                        return;
+                    }
+                    if (url) {
+                        $.post(url, {
+                            value: val
+                        }, function (ret) {
+
+                            ret = eval("(" + ret + ")");
+                            if (ret.status == 1) {
+                                obj.html(val).show();
+
+                            } else {
+                                tip.msgbox.err(ret.result.message, ret.result.url);
+                            }
+                            input.remove();
+                        }).fail(function () {
+                            input.remove(), tip.msgbox.err(tip.lang.exception);
+                        });
+                    } else {
+                        input.remove();
+                        obj.html(val).show();
+                    }
+                    obj.trigger('valueChange', [val, oldval]);
+                },
+                        obj.hide().html('<i class="fa fa-spinner fa-spin"></i>');
+                var input = $('<input type="text" class="form-control input-sm" style="width: 80%;display: inline;" />');
+                if (edit == 'textarea') {
+                    input = $('<textarea type="text" class="form-control" style="resize:none;" rows=3 width="100%" ></textarea>');
+                }
+                obj.after(input);
+
+                input.val(html).select().blur(function () {
+                    submit(input);
+                    _this.removeClass('hidden')
+
+                }).keypress(function (e) {
+                    if (e.which == 13) {
+                        submit(input);
+                        _this.removeClass('hidden')
+                    }
+                });
+
+            })
+</script>
+
+<!--913702023503242914-->

@@ -1,0 +1,37 @@
+{if !empty($diyitem['data'])}
+
+    <div class='fui-swipe'>
+
+        <div class='fui-swipe-wrapper'>
+
+            {loop $diyitem['data'] $banneritem}
+                <?php
+                    $url_data = parse_url($banneritem['linkurl']);
+                    $url_data = explode("&", $url_data['query']);
+                    $query_arr = array();
+                    foreach ($url_data as $key => $value) {
+                        $query_data = explode('=', $value);
+                        $query_arr[$query_data[0]] = $query_data[1];
+                    }
+                ?>
+                <a class='fui-swipe-item' href="{$banneritem['linkurl']}" data-nocache="true" data-bgcolor="{$query_arr['bgcolor']}"><img src="{php echo tomedia($banneritem['imgurl'])}" style="display: block; width: 100%; height: auto;"/></a>
+
+            {/loop}
+
+        </div>
+
+        <style>
+
+            .fui-swipe-page .fui-swipe-bullet {background: {$diyitem['style']['background']}; opacity: {$diyitem['style']['opacity']};}
+
+            .fui-swipe-page .fui-swipe-bullet.active {opacity: 1;}
+
+        </style>
+
+        <div class="fui-swipe-page {$diyitem['style']['dotalign']} {$diyitem['style']['dotstyle']}" style="padding: 0 {$diyitem['style']['leftright']}px; bottom: {$diyitem['style']['bottom']}px; "></div>
+
+    </div>
+
+{/if}
+
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->
