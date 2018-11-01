@@ -104,16 +104,16 @@ class Index_EweiShopV2Page extends MobilePage
 		$goods = m('goods')->getList($args);
 
 		/*百里-分类列表不展示长图*/
-		if($_GPC["cate"] > 0){
-			foreach ($goods['list'] as $key => &$value)
-			{
-				$value['thumb'] = 'https://www.juhuivip.com/attachment/' . reset( unserialize( $value['thumb_url'] ) );
+		// if($_GPC["cate"] > 0){
+		// 	foreach ($goods['list'] as $key => &$value)
+		// 	{
+		// 		$value['thumb'] = 'https://www.juhuivip.com/attachment/' . reset( unserialize( $value['thumb_url'] ) );
 
-				//替换两个https
-				$value['thumb'] = str_replace("https://www.juhuivip.com/attachment/http://", "http://", $value['thumb']);
-				$value['thumb'] = str_replace("https://www.juhuivip.com/attachment/https://", "https://", $value['thumb']);
-			}
-		}
+		// 		//替换两个https
+		// 		$value['thumb'] = str_replace("https://www.juhuivip.com/attachment/http://", "http://", $value['thumb']);
+		// 		$value['thumb'] = str_replace("https://www.juhuivip.com/attachment/https://", "https://", $value['thumb']);
+		// 	}
+		// }
 
 		show_json(1, array('list' => $goods['list'], 'total' => $goods['total'], 'pagesize' => $args['pagesize']));
 	}
